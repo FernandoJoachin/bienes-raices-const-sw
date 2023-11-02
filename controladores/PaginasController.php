@@ -1,8 +1,8 @@
 <?php
 namespace Controlador;
+
 use Modelo\Propiedad;
 use MVC\Router;
-
 class PaginasController
 {
     public static function index(Router $router)
