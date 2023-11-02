@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Modelo;
 class Vendedor extends ActiveRecord{
     protected static $columnasDB = ["id","nombre","apellido","telefono"];
     protected static $nombreTabla = "vendedores";

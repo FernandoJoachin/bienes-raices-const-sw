@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Modelo;
 
 class ActiveRecord{
     //DB
