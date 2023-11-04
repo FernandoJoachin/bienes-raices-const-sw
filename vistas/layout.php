@@ -3,7 +3,12 @@
         session_start();
     }
     $auth = $_SESSION["login"] ?? false;
+
+    if(!isset($esInicio)){
+        $esInicio = false;
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +21,7 @@
     <title>Bienes raices</title>
 </head>
 <body>
-    <header class="header <?php echo $inicio ? "inicio" : ""; ?>">
+    <header class="header <?php echo $esInicio ? "inicio" : ""; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/">
@@ -30,17 +35,35 @@
                 <div class="derecha">
                     <img class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="dark mode">
                     <div class="navegacion">
-                        <a href="/nosotros.php">Nosotros</a>
-                        <a href="/anuncios.php">Anuncios</a>
-                        <a href="/blog.php">Blog</a>
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="/propiedades">Propiedades</a>
+                        <a href="/blog">Blog</a>
+                        <a href="/contacto">Contacto</a>
                         <?php if($auth){ ?>
-                            <a href="cerrar-sesion.php">Cerrar Sesión</a>
+                            <a href="/logout">Cerrar Sesión</a>
                         <?php } ?>
                     </div>
                 </div>
             </div>
-            <?php if($inicio){ ?>
+            <?php if($esInicio){ ?>
                 <h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>
             <?php } ?>    
         </div>
     </header>
+
+    <?php echo $contenido; ?>
+
+    <footer class="footer seccion">
+        <div class="contenedor contenido-footer">
+            <div class="navegacion">
+                <a href="/nosotros">Nostros</a>
+                <a href="/propiedades">Propiedades</a>
+                <a href="/blog">Blog</a>
+                <a href="/contacto">Contacto</a>
+            </div>
+        </div>
+        <p class="copyright">Todos los derechos reservados <?php echo date("Y"); ?> &copy;</p>
+    </footer>
+    <script src="/build/js/bundle.min.js"></script>
+</body>
+</html>

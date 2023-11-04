@@ -1,7 +1,8 @@
 <?php
-namespace App;
+namespace Modelo;
 
-class ActiveRecord{
+class ActiveRecord
+{
     //DB
     protected static $db;
     protected static $columnasDB = [];
