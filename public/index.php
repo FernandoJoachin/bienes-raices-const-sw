@@ -11,6 +11,8 @@ $router->get("/propiedades",[PaginasController::class, "vistaPropiedades"]);
 $router->get("/propiedad",[PaginasController::class, "vistaPropiedad"]);
 $router->get("/blog",[PaginasController::class, "vistaBlogs"]);
 $router->get("/entrada",[PaginasController::class, "vistaEntrada"]);
+
 $router->get("/contacto",[PaginasController::class, "vistaContacto"]);
+$router->post("/contacto",[PaginasController::class, "enviarCorreoContacto"]);
 
 $router->comprobarRutas();

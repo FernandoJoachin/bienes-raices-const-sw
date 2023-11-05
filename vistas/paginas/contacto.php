@@ -6,42 +6,46 @@
     <img loading="lazy" width="200" height="300" src="/build/img/destacada3.jpg" alt="Imagen Contacto">
   </picture>
 
-  <h2>Llene el formulario de contacto</h2>
-  <form class="formulario" method="POST">
-    <fieldset>
-      <legend>Información Personal</legend>
-      <label for="nombre">Nombre</label>
-      <input id="nombre" name="contacto[nombre]" type="text" placeholder="Tu Nombre" required>
+  <?php if ($mensajeResultado) { ?>
+      <p class="alerta <?php echo ($enviado) ? "exito" : "error"; ?>"> <?php echo $mensajeResultado; ?> </p>
+  <?php } ?>
 
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="contacto[mensaje]" required></textarea>
-    </fieldset>
-    <fieldset>
-      <legend>Información sobre la propiedad</legend>
-      <label for="opciones">Compra o Vende</label>
-      <select id="opciones" name="contacto[tipo]" required>
-        <option value="" disabled selected>--Seleccione--</option>
-        <option value="Compra">Compra</option>
-        <option value="Vende">Vende</option>
-      </select>
+    <h2>Llene el formulario de contacto</h2>
+    <form class="formulario" method="POST">
+      <fieldset>
+        <legend>Información Personal</legend>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="contacto[nombre]" type="text" placeholder="Tu Nombre" required>
 
-      <label for="presupuesto">Presupuesto o Precio</label>
-      <input id="presupuesto" name="contacto[precio]" type="numbe" placeholder="Tu Presupuesto o Precio" required>
-    </fieldset>
-    <fieldset>
-      <legend>Contacto</legend>
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="contacto[mensaje]" required></textarea>
+      </fieldset>
+      <fieldset>
+        <legend>Información sobre la propiedad</legend>
+        <label for="opciones">Compra o Vende</label>
+        <select id="opciones" name="contacto[tipo]" required>
+          <option value="" disabled selected>--Seleccione--</option>
+          <option value="Compra">Compra</option>
+          <option value="Vende">Vende</option>
+        </select>
 
-      <p>Como desea ser contactado</p>
-      <div class="forma-contacto">
-        <label for="contactar-telefono">Teléfono</label>
-        <input type="radio" name="contacto[contacto]" value="telefono" id="contactar-telefono" required>
-        <label for="contactar-email">E-mail</label>
-        <input type="radio" name="contacto[contacto]" value="email" id="contactar-email" required>
-      </div>
+        <label for="presupuesto">Presupuesto o Precio</label>
+        <input id="presupuesto" name="contacto[precio]" type="numbe" placeholder="Tu Presupuesto o Precio" required>
+      </fieldset>
+      <fieldset>
+        <legend>Contacto</legend>
 
-      <div id="contacto"></div>
+        <p>Como desea ser contactado</p>
+        <div class="forma-contacto">
+          <label for="contactar-telefono">Teléfono</label>
+          <input type="radio" name="contacto[contacto]" value="telefono" id="contactar-telefono" required>
+          <label for="contactar-email">E-mail</label>
+          <input type="radio" name="contacto[contacto]" value="email" id="contactar-email" required>
+        </div>
 
-    </fieldset>
-    <input class="boton-verde" type="submit" value="Enviar">
-  </form>
+        <div id="contacto"></div>
+
+      </fieldset>
+      <input class="boton-verde" type="submit" value="Enviar">
+    </form>
 </main>
