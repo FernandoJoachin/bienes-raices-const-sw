@@ -1,5 +1,5 @@
 <main class="contenedor seccion">
-  <h1>Crear Vendedor(a)</h1>
+  <h1>Crear Vendedor</h1>
 
   <?php foreach ($errores as $error) : ?>
     <div class="alerta error">
@@ -8,7 +8,7 @@
   <?php endforeach ?>
   <form class="formulario" method="POST">
     <?php include __DIR__ . "/formulario.php" ?>
-    <input type="submit" value="Crear Vendedor(a)" class="boton boton-verde">
+    <input type="submit" value="Crear Vendedor" class="boton boton-verde">
   </form>
   <a href="/admin" class="boton boton-amarillo">Volver</a>
 
