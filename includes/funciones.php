@@ -25,10 +25,10 @@ function debuguear($debug)
 }
 
 //Escapar/Sanitizar del HTML
-function SanitizarHTML($html)
+function limpiarHTML($html)
 {
-    $sanitizado = htmlspecialchars($html);
-    return $sanitizado;
+    $limpiado = htmlspecialchars($html);
+    return $limpiado;
 }
 
 //Validar contenido
