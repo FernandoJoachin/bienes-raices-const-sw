@@ -6,10 +6,10 @@
       <legend>Contraseña</legend>
 
       <label for="password">Contraseña</label>
-      <input id="password" type="password" name="password" placeholder="Tu Password">
+      <input id="password" type="password" name="password" placeholder="Tu Contraseña">
 
       <label for="password">Confirmar Contraseña</label>
-      <input id="c-password" type="password" name="c-password" placeholder="Tu Password">
+      <input id="c-password" type="password" name="c-password" placeholder="Confirmar Contraseña">
     </fieldset>
     <input class="boton boton-verde" type="submit" value="Restablecer contraseña">
   </form>
