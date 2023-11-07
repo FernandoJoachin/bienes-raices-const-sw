@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__ . "/../includes/app.php";
+
 use MVC\Router;
 use Controlador\PaginasController;
+use Controlador\CtrlPanelAdministracion;
 
 $router = New Router();
 
@@ -11,5 +13,7 @@ $router->get("/propiedades",[PaginasController::class, "vistaPropiedades"]);
 $router->get("/propiedad",[PaginasController::class, "vistaPropiedad"]);
 $router->get("/blog",[PaginasController::class, "vistaBlogs"]);
 $router->get("/entrada",[PaginasController::class, "vistaEntrada"]);
+
+$router->get("/admin", [CtrlPanelAdministracion::class, "vistaPanelAdministracion"]);
 
 $router->comprobarRutas();
