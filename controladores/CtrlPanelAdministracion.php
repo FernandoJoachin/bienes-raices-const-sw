@@ -4,7 +4,6 @@ namespace Controlador;
 use MVC\Router;
 use Modelo\Propiedad;
 use Modelo\Vendedor;
-
 class CtrlPanelAdministracion
 {
     public static function vistaPanelAdministracion(Router $router)
