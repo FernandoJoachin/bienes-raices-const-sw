@@ -21,7 +21,9 @@ $router->get("/entrada",[CtrlPaginas::class, "vistaEntrada"]);
 $router->get("/admin", [CtrlPanelAdministracion::class, "vistaPanelAdministracion"]);
 
 $router->get("/restablecer-contraseña",[CtrlInicioSesion::class, "vistaRestablecerContraseña"]);
+$router->get("/olvide-contraseña",[CtrlInicioSesion::class, "vistaOlvideContraseña"]);
 $router->post("/restablecer-contraseña",[CtrlInicioSesion::class, "restablecerContraseña"]);
+$router->post("/olvide-contraseña",[CtrlInicioSesion::class, "olvideContraseña"]);
 
 $router->get("/vendedores/crear", [CtrlVendedor::class, "vistaCrearVendedor"]);
 $router->get("/vendedores/actualizar", [CtrlVendedor::class, "vistaActualizarVendedor"]);
