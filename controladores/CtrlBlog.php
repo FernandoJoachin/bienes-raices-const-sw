@@ -31,8 +31,8 @@ class CtrlBlog
         $errores = $articulo->validar();
         $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
-        if ($_FILES['article']['tmp_name']["image"]) {
-            $imagen = Image::make($_FILES['article']['tmp_name']["image"])->fit(800, 600);
+        if ($_FILES['articulo']['tmp_name']["imagen"]) {
+            $imagen = Image::make($_FILES['articulo']['tmp_name']["imagen"])->fit(800, 600);
             $articulo->setImagen($nombreImagen);
         }
 
