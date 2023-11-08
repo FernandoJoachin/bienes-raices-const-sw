@@ -16,6 +16,9 @@
       <label for="password">Password</label>
       <input id="password" type="password" name="password" placeholder="Tu Password">
     </fieldset>
-    <input class="boton boton-verde" type="submit" value="Iniciar Sesion">
+    <div class="formulario__acciones">
+      <input class="boton boton-verde" type="submit" value="Iniciar Sesion">
+      <a href="/olvide-contraseña" class="formulario__enlace">¿Olvidaste tu contraseña?</a>
+    </div>
   </form>
 </main>
