@@ -9,6 +9,7 @@ class CtrlVendedor
 
     public static function vistaCrearVendedor(Router $router)
     {
+        estaAutenticado();
         $vendedor = new Vendedor();
         $errores = [];
         if(isset($_SESSION["respuesta"])){
@@ -25,6 +26,7 @@ class CtrlVendedor
 
     public static function vistaActualizarVendedor(Router $router)
     {
+        estaAutenticado();
         $id = validarORedireccionar("/admin");
         $vendedor = Vendedor::find($id);
         $errores = Vendedor::getErrores();
