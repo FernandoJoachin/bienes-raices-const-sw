@@ -20,8 +20,11 @@ $router->get("/entrada",[CtrlPaginas::class, "vistaEntrada"]);
 
 $router->get("/admin", [CtrlPanelAdministracion::class, "vistaPanelAdministracion"]);
 
+$router->get("/iniciar-sesion",[CtrlInicioSesion::class, "vistaIniciarSesion"]);
+$router->get("/cerrar-sesion",[CtrlInicioSesion::class, "cerrarSesion"]);
 $router->get("/restablecer-contraseña",[CtrlInicioSesion::class, "vistaRestablecerContraseña"]);
 $router->get("/olvide-contraseña",[CtrlInicioSesion::class, "vistaOlvideContraseña"]);
+$router->post("/iniciar-sesion",[CtrlInicioSesion::class, "iniciarSesion"]);
 $router->post("/restablecer-contraseña",[CtrlInicioSesion::class, "restablecerContraseña"]);
 $router->post("/olvide-contraseña",[CtrlInicioSesion::class, "olvideContraseña"]);
 

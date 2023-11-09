@@ -8,6 +8,7 @@ class CtrlPanelAdministracion
 {
     public static function vistaPanelAdministracion(Router $router)
     {
+        estaAutenticado();
         $propiedades = Propiedad::all();
         $vendedores = Vendedor::all();
         $resultado = $_GET["resultado"] ?? null;
