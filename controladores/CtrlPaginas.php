@@ -45,5 +45,10 @@ class CtrlPaginas
     {
         $router->render("paginas/entrada");
     }
+
+    public static function vistaContacto(Router $router)
+    {
+        $router->render("paginas/contacto");
+    }
 }
 
