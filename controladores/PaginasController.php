@@ -3,11 +3,12 @@ namespace Controlador;
 
 use Modelo\Propiedad;
 use MVC\Router;
+
 class PaginasController
 {
     public static function index(Router $router)
     {
-        $propiedades =  Propiedad::get(3);
+        $propiedades =  Propiedad::encontrarRegistroPorId(3);
         $router->render("paginas/index", [
             "propiedades" => $propiedades,
             "esInicio" => true
@@ -21,7 +22,7 @@ class PaginasController
 
     public static function vistaPropiedades(Router $router)
     {
-        $propiedades = Propiedad::all();
+        $propiedades = Propiedad::obtenerTodosRegistrosEnBD();
         $router->render("paginas/propiedades",[
             "propiedades" => $propiedades
         ]);
@@ -30,7 +31,7 @@ class PaginasController
     public static function vistaPropiedad(Router $router)
     {
         $id = validarORedireccionar("/anuncios");
-        $propiedad = Propiedad::find($id);
+        $propiedad = Propiedad::encontrarRegistroPorId($id);
         $router->render("paginas/propiedad",[
             "propiedad" => $propiedad
         ]);
