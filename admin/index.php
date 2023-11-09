@@ -31,7 +31,6 @@
         }
     }
 
-    //Incluye un template
     incluirTemplate("header");
 ?>
     <main class="contenedor seccion">
@@ -107,6 +106,5 @@
         </table>
     </main>
 <?php
-    //Cerrar la conexion
     incluirTemplate("footer");
 ?>

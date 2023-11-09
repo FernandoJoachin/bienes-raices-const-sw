@@ -3,7 +3,7 @@ namespace Controlador;
 
 use Modelo\Propiedad;
 use MVC\Router;
-class PaginasController
+class CtrlPaginas
 {
     public static function index(Router $router)
     {

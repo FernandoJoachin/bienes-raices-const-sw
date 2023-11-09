@@ -7,12 +7,11 @@ function incluirTemplate(string $nombre, bool $inicio = false)
     include TEMPLATES_URL . "/{$nombre}.php";
 }
 
-function estaAutenticado() : void 
+function estaAutenticado() 
 {
-    session_start();
-
-    if(!$_SESSION["login"]){
+    if(!isset($_SESSION["login"])){
         header("Location: /");
+        exit;
     }
 }
 
@@ -25,10 +24,10 @@ function debuguear($debug)
 }
 
 //Escapar/Sanitizar del HTML
-function SanitizarHTML($html)
+function limpiarHTML($html)
 {
-    $sanitizado = htmlspecialchars($html);
-    return $sanitizado;
+    $limpiado = htmlspecialchars($html);
+    return $limpiado;
 }
 
 //Validar contenido
