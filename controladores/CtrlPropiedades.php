@@ -15,6 +15,7 @@ class CtrlPropiedades
      */
     public static function vistaCrearPropiedad(Router $router)
     {
+        estaAutenticado();
         $propiedad = new Propiedad();
         $vendedores = Vendedor::obtenerTodosRegistrosEnBD();
         $errores = [];
@@ -39,6 +40,7 @@ class CtrlPropiedades
      */
     public static function vistaActualizarPropiedad(Router $router)
     {
+        estaAutenticado();
         $id = validarORedireccionar("/admin");
         $propiedad = Propiedad::encontrarRegistroPorId($id);
         $vendedores = Vendedor::obtenerTodosRegistrosEnBD();

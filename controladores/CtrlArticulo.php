@@ -15,6 +15,7 @@ class CtrlArticulo
      */
     public static function vistaCrearArticulo(Router $router)
     {
+        estaAutenticado();
         $articulo = new Articulo();
         $errores = [];
 
@@ -38,6 +39,7 @@ class CtrlArticulo
      */
     public static function vistaActualizarArticulo(Router $router)
     {        
+        estaAutenticado();
         $id = validarORedireccionar("/admin");
         $articulo = Articulo::encontrarRegistroPorId($id);
         $errores = Articulo::obtenerErrores();
