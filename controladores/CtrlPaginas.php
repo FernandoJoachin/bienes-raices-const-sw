@@ -1,8 +1,10 @@
 <?php
 namespace Controlador;
 
+use Utilidades\Email;
 use Modelo\Propiedad;
 use MVC\Router;
+
 class CtrlPaginas
 {
     public static function index(Router $router)
@@ -48,7 +50,24 @@ class CtrlPaginas
 
     public static function vistaContacto(Router $router)
     {
-        $router->render("paginas/contacto");
+        $mensajeResultado = "";
+        $enviado = "false";
+        if(isset($_SESSION["respuesta"])){
+            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
+            $enviado = $_SESSION["respuesta"]["enviado"];
+            unset($_SESSION["respuesta"]);
+        }
+        $router->render("paginas/contacto", [
+            "mensajeResultado" => $mensajeResultado,
+            "enviado" => $enviado
+        ]);
+    }
+
+    public static function enviarCorreoContacto(){
+        $email = new Email("contacto");
+        if($email->enviarCorreoContacto()){
+            header("Location: /contacto");
+        }
     }
 }
 

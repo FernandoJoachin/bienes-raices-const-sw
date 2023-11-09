@@ -18,6 +18,7 @@ $router->get("/propiedades",[CtrlPaginas::class, "vistaPropiedades"]);
 $router->get("/propiedad",[CtrlPaginas::class, "vistaPropiedad"]);
 $router->get("/blog",[CtrlPaginas::class, "vistaBlogs"]);
 $router->get("/entrada",[CtrlPaginas::class, "vistaEntrada"]);
+
 $router->get("/contacto",[CtrlPaginas::class, "vistaContacto"]);
 $router->post("/contacto",[CtrlPaginas::class, "enviarCorreoContacto"]);
 
