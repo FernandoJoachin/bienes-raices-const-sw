@@ -8,45 +8,17 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class CtrlPropiedades
 {
-    public static function crearPropiedad()
-    {
-        $propiedad = new Propiedad($_POST["propiedad"]);
-        $nombreImg = md5(uniqid(rand(), true)) . ".jpg";
-        $errores = Propiedad::obtenerErrores();
-
-        if ($_FILES["propiedad"]["tmp_name"]["img"]) {
-            $img = Image::make(
-                $_FILES["propiedad"]["tmp_name"]["img"]
-            )->fit(800, 600);
-
-            $propiedad->establecerImagen($nombreImg);
-        }
-
-        $errores = $propiedad->validarErrores();
-    
-        if (empty($errores)) {
-            $carpetaImg = "../../imagenes/";
-            if (!is_dir(CARPETA_IMG)) {
-                mkdir(CARPETA_IMG);
-            }
-            $img->save(CARPETA_IMG . $nombreImg);
-            $propiedad->almacenarEnBD();
-        } else {
-            $_SESSION["respuesta"] = [
-                "propiedad" => $propiedad,
-                "nombreImg" => $nombreImg,
-                "errores" => $errores
-            ];
-
-            header("Location: /propiedades/crear");
-        }
-    }
-
+    /**
+     * Muestra la vista para crear una nueva propiedad.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     */
     public static function vistaCrearPropiedad(Router $router)
     {
         $propiedad = new Propiedad();
         $vendedores = Vendedor::obtenerTodosRegistrosEnBD();
         $errores = [];
+
         if(isset($_SESSION["respuesta"])){
             $propiedad = $_SESSION["respuesta"]["propiedad"];
             $errores = $_SESSION["respuesta"]["errores"];
@@ -60,43 +32,11 @@ class CtrlPropiedades
         ]);
     }
 
-    public static function actualizarPropiedad()
-    {
-        $args = $_POST["propiedad"];
-        $idUsuario = $_GET["id"];
-
-        $propiedad = Propiedad::encontrarRegistroPorId($idUsuario);
-        $propiedad->sincronizarCambiosConObjeto($args);
-        
-        $nombreImg = md5(uniqid(rand(), true)) . ".jpg";
-
-        if ($_FILES["propiedad"]["tmp_name"]["img"]) {
-            $img = Image::make(
-                $_FILES["propiedad"]["tmp_name"]["img"])->fit(800, 600
-            );
-            $propiedad->establecerImagen($nombreImg);
-        }
-
-        $errores = $propiedad->validarErrores();
-
-        if (empty($errores)) {
-            if ($_FILES["propiedad"]["tmp_name"]["img"]) {
-                $img->save(CARPETA_IMG . $nombreImg);
-            }
-
-            $propiedad->almacenarEnBD();
-            
-        } else {
-            $_SESSION["respuesta"] = [
-                "propiedad" => $propiedad,
-                "nombreImg" => $nombreImg,
-                "errores" => $errores
-            ];
-
-            header("Location: /propiedades/actualizar?id=" . $propiedad->id);
-        }
-    }
-
+    /**
+     * Muestra la vista para actualizar una propiedad existente.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     */
     public static function vistaActualizarPropiedad(Router $router)
     {
         $id = validarORedireccionar("/admin");
@@ -118,6 +58,93 @@ class CtrlPropiedades
         ]);
     }
 
+    /**
+     * Crea una nueva propiedad utilizando los datos del formulario.
+     * 
+     * @return void
+     */
+    public static function crearPropiedad()
+    {
+        $propiedad = new Propiedad($_POST["propiedad"]);
+        $nombreImg = md5(uniqid(rand(), true)) . ".jpg";
+        $errores = Propiedad::obtenerErrores();
+
+        if ($_FILES["propiedad"]["tmp_name"]["img"]) {
+            $img = Image::make(
+                $_FILES["propiedad"]["tmp_name"]["img"]
+            )->fit(800, 600);
+
+            $propiedad->establecerImagen($nombreImg);
+        }
+
+        $errores = $propiedad->validarErrores();
+    
+        if (empty($errores)) {
+            $carpetaImg = "../../imagenes/";
+            if (!is_dir($carpetaImg)) {
+                mkdir($carpetaImg);
+            }
+            $img->save($carpetaImg . $nombreImg);
+            $propiedad->almacenarEnBD();
+        } else {
+            $_SESSION["respuesta"] = [
+                "propiedad" => $propiedad,
+                "nombreImg" => $nombreImg,
+                "errores" => $errores
+            ];
+
+            header("Location: /propiedades/crear");
+        }
+    }
+
+    /**
+     * Actualiza una propiedad existente utilizando los datos del formulario.
+     * 
+     * @return void
+     */
+    public static function actualizarPropiedad()
+    {
+        $args = $_POST["propiedad"];
+        $idPropiedad = $_GET["id"];
+
+        $propiedad = Propiedad::encontrarRegistroPorId($idPropiedad);
+        $propiedad->sincronizarCambiosConObjeto($args);
+        
+        $nombreImg = md5(uniqid(rand(), true)) . ".jpg";
+
+        if ($_FILES["propiedad"]["tmp_name"]["img"]) {
+            $img = Image::make(
+                $_FILES["propiedad"]["tmp_name"]["img"])->fit(800, 600
+            );
+            $propiedad->establecerImagen($nombreImg);
+        }
+
+        $errores = $propiedad->validarErrores();
+
+        if (empty($errores)) {
+            if ($_FILES["propiedad"]["tmp_name"]["img"]) {
+                $img->save(CARPETA_IMG . $nombreImg);
+            }
+
+            $propiedad->almacenarEnBD();
+            
+        } else {
+            // Guardar datos en sesión para mostrar en el formulario
+            $_SESSION["respuesta"] = [
+                "propiedad" => $propiedad,
+                "nombreImg" => $nombreImg,
+                "errores" => $errores
+            ];
+
+            header("Location: /propiedades/actualizar?id=" . $idPropiedad);
+        }
+    }
+
+    /**
+     * Elimina una propiedad existente.
+     * 
+     * @return void
+     */
     public static function eliminarPropiedad()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
