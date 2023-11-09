@@ -18,10 +18,7 @@ $router->get("/propiedades",[CtrlPaginas::class, "vistaPropiedades"]);
 $router->get("/propiedad",[CtrlPaginas::class, "vistaPropiedad"]);
 $router->get("/blog",[CtrlPaginas::class, "vistaBlogs"]);
 $router->get("/entrada",[CtrlPaginas::class, "vistaEntrada"]);
-<<<<<<< HEAD
 
-=======
->>>>>>> c891161392d9398e7b3dee1abe508ced55cbed50
 $router->get("/contacto",[CtrlPaginas::class, "vistaContacto"]);
 $router->post("/contacto",[CtrlPaginas::class, "enviarCorreoContacto"]);
 
