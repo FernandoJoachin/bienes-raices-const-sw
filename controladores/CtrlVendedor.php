@@ -6,7 +6,12 @@ use Modelo\Vendedor;
 
 class CtrlVendedor
 {
-
+    /**
+     * Muestra la vista para crear un nuevo vendedor.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     * @return void
+    */
     public static function vistaCrearVendedor(Router $router)
     {
         estaAutenticado();
@@ -24,12 +29,18 @@ class CtrlVendedor
         ]);
     }
 
+    /**
+     * Muestra la vista para actualizar un vendedor existente.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     * @return void
+    */
     public static function vistaActualizarVendedor(Router $router)
     {
         estaAutenticado();
         $id = validarORedireccionar("/admin");
-        $vendedor = Vendedor::find($id);
-        $errores = Vendedor::getErrores();
+        $vendedor = Vendedor::encontrarRegistroPorId($id);
+        $errores = Vendedor::obtenerErrores();
 
         if(isset($_SESSION["respuesta"])){
             $vendedor = $_SESSION["respuesta"]["vendedor"];
@@ -43,17 +54,22 @@ class CtrlVendedor
         ]);      
     }
 
+    /**
+     * Crea un nuevo vendedor utilizando los datos del formulario.
+     *
+     * @return void
+    */
     public static function crearVendedor()
     {  
         $vendedor = new Vendedor($_POST["vendedor"]);
-        $errores = $vendedor->validar();
+        $errores = $vendedor->validarErrores();
         $_SESSION["respuesta"] = [
             "vendedor" => $vendedor,
             "errores" => $errores
         ];
-        //Actualizar en la base de datos
+
         if(empty($errores)) {
-            $vendedor->guardar();
+            $vendedor->almacenarEnBD();
         } else {
             $_SESSION["respuesta"] = [
                 "vendedor" => $vendedor,
@@ -63,27 +79,35 @@ class CtrlVendedor
         }
     }
 
-
+    /**
+     * Actualiza un vendedor existente con los datos del formulario.
+     *
+     * @return void
+    */
     public static function actualizarVendedor()
     {
-        $idUsuario = $_GET["id"];
-        $vendedor = Vendedor::find($idUsuario);
+        $idVendedor = $_GET["id"];
+        $vendedor = Vendedor::encontrarRegistroPorId($idVendedor);
         $args = $_POST["vendedor"];
-        $vendedor->sincronizar($args);
-        $errores = $vendedor->validar();  
+        $vendedor->sincronizarCambiosConObjeto($args);
+        $errores = $vendedor->validarErrores();  
 
-          
         if(empty($errores)){
-            $vendedor->guardar();
+            $vendedor->almacenarEnBD();
         } else {
             $_SESSION["respuesta"] = [
                 "vendedor" => $vendedor,
                 "errores" => $errores
             ];
-            header("Location: /vendedores/actualizar?id=". $vendedor->id);
+            header("Location: /vendedores/actualizar?id=". $idVendedor);
         }
     }
 
+    /**
+     * Elimina un vendedor existente.
+     *
+     * @return void
+    */
     public static function eliminarVendedor()
     {
         $id = $_POST["id"];
@@ -91,8 +115,8 @@ class CtrlVendedor
         if($id){
             $tipo = $_POST["tipo"];
             if(validarTipoContenido($tipo)){
-                $propiedad = Vendedor::find($id);
-                $propiedad->eliminar($tipo);
+                $propiedad = Vendedor::encontrarRegistroPorId($id);
+                $propiedad->borrarRegistroBD($tipo);
             }   
         } 
     }

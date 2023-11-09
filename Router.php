@@ -3,19 +3,45 @@ namespace MVC;
 
 class Router
 {
+    /**
+     * @var array Arreglo que almacena las rutas GET y sus funciones asociadas.
+     */
     public $rutasGet = [];
+
+    /**
+     * @var array Arreglo que almacena las rutas POST y sus funciones asociadas.
+     */
     public $rutasPOST = [];
 
+    /**
+     * Registra una ruta GET con su función asociada.
+     *
+     * @param string $url Ruta a ser registrada.
+     * @param callable $funcion Función asociada a la ruta.
+     * @return void
+     */
     public function get($url, $funcion)
     {
         $this->rutasGet[$url] = $funcion;
     }
 
+    /**
+     * Registra una ruta POST con su función asociada.
+     *
+     * @param string $url Ruta a ser registrada.
+     * @param callable $funcion Función asociada a la ruta.
+     * @return void
+     */
     public function post($url, $funcion)
     {
         $this->rutasPOST[$url] = $funcion;
     }
 
+    /**
+     * Comprueba las rutas y ejecuta la función asociada a la ruta actual.
+     *
+     * @return void
+     */
     public function comprobarRutas()
     {
         session_start();
@@ -29,13 +55,20 @@ class Router
         }
 
         if($funcion){
-            call_user_func($funcion,$this); 
+            call_user_func($funcion, $this); 
         }else{
-            echo "Pagina no encontrada";
+            echo "Página no encontrada";
         }
     }
 
-    public function render($view, $datos=[])
+    /**
+     * Renderiza una vista con datos asociados.
+     *
+     * @param string $view Nombre de la vista a ser renderizada.
+     * @param array $datos Arreglo asociativo de datos para la vista.
+     * @return void
+     */
+    public function render($view, $datos = [])
     {
         foreach($datos as $key => $value){
             $$key = $value;

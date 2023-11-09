@@ -6,8 +6,9 @@ use MVC\Router;
 use Controlador\CtrlPaginas;
 use Controlador\CtrlPanelAdministracion;
 use Controlador\CtrlInicioSesion;
+use Controlador\CtrlPropiedades;
 use Controlador\CtrlVendedor;
-use Controlador\CtrlBlog;
+use Controlador\CtrlArticulo;
 use Controlador\CtrlUsuario;
 
 $router = New Router();
@@ -32,16 +33,22 @@ $router->post("/iniciar-sesion",[CtrlInicioSesion::class, "iniciarSesion"]);
 $router->post("/restablecer-contraseña",[CtrlInicioSesion::class, "restablecerContraseña"]);
 $router->post("/olvide-contraseña",[CtrlInicioSesion::class, "olvideContraseña"]);
 
+$router->get("/propiedades/crear", [CtrlPropiedades::class, "vistaCrearPropiedad"]);
+$router->post("/propiedades/crear", [CtrlPropiedades::class, "crearPropiedad"]);
+$router->get("/propiedades/actualizar", [CtrlPropiedades::class, "vistaActualizarPropiedad"]);
+$router->post("/propiedades/actualizar", [CtrlPropiedades::class, "actualizarPropiedad"]);
+$router->post("/propiedades/eliminar", [CtrlPropiedades::class, "eliminarPropiedad"]);
+
 $router->get("/vendedores/crear", [CtrlVendedor::class, "vistaCrearVendedor"]);
 $router->get("/vendedores/actualizar", [CtrlVendedor::class, "vistaActualizarVendedor"]);
 $router->post("/vendedores/crear", [CtrlVendedor::class, "crearVendedor"]);
 $router->post("/vendedores/actualizar", [CtrlVendedor::class, "actualizarVendedor"]);
 $router->post("/vendedores/eliminar", [CtrlVendedor::class, "eliminarVendedor"]);
 
-$router->get("/blog/crear",[CtrlBlog::class, "vistaCrearArticulo"]);
-$router->get("/blog/actualizar",[CtrlBlog::class, "vistaActualizarArticulo"]);
-$router->post("/blog/crear",[CtrlBlog::class, "crearArticulo"]);
-$router->post("/blog/crear",[CtrlBlog::class, "actualizarArticulo"]);
+$router->get("/articulos/crear",[CtrlArticulo::class, "vistaCrearArticulo"]);
+$router->get("/articulos/actualizar",[CtrlArticulo::class, "vistaActualizarArticulo"]);
+$router->post("/articulos/crear",[CtrlArticulo::class, "crearArticulo"]);
+$router->post("/articulos/crear",[CtrlArticulo::class, "actualizarArticulo"]);
 
 $router->get("/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
 $router->post("/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);
