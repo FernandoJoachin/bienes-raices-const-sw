@@ -7,6 +7,7 @@ use Controlador\CtrlPaginas;
 use Controlador\CtrlPanelAdministracion;
 use Controlador\CtrlInicioSesion;
 use Controlador\CtrlVendedor;
+use Controlador\CtrlBlog;
 use Controlador\CtrlUsuario;
 
 $router = New Router();
@@ -33,6 +34,9 @@ $router->get("/vendedores/actualizar", [CtrlVendedor::class, "vistaActualizarVen
 $router->post("/vendedores/crear", [CtrlVendedor::class, "crearVendedor"]);
 $router->post("/vendedores/actualizar", [CtrlVendedor::class, "actualizarVendedor"]);
 $router->post("/vendedores/eliminar", [CtrlVendedor::class, "eliminarVendedor"]);
+
+$router->get("/blog/crear",[CtrlBlog::class, "vistaCrearArticulo"]);
+$router->post("/blog/crear",[CtrlBlog::class, "crearArticulo"]);
 
 $router->get("/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
 $router->post("/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);

@@ -4,7 +4,7 @@
   <?php
   $mensaje = mostrarNotificacion(intval($resultado));
   if ($mensaje) { ?>
-    <p class="alerta exito"><?php echo SanitizarHTML($mensaje); ?></p>
+    <p class="alerta exito"><?php echo limpiarHTML($mensaje); ?></p>
   <?php }; ?>
 
   <a href="/propiedades/crear" class="boton boton-amarillo">Ir a Crear Propiedad</a>
