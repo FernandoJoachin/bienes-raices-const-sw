@@ -57,4 +57,42 @@ class CtrlBlog
             header("Location: /blog/crear");
         }
     }
+
+    public static function vistaActualizarArticulo(Router $router)
+    {        
+        $id = validarORedireccionar("/admin");
+        $articulo = Articulo::find($id);
+        $errores = Articulo::getErrores();
+
+        if(isset($_SESSION["respuesta"])){
+            $articulo = $_SESSION["respuesta"]["articulo"];
+            $errores = $_SESSION["respuesta"]["errores"];
+            unset($_SESSION["respuesta"]);
+        }
+
+        $router->render("blog/actualizar", [
+            "articulo" => $articulo,
+            "errores" => $errores
+        ]);
+    }
+
+    public static function actualizarArticulo()
+    {
+        $idArticulo = $_GET["id"];
+        $articulo = Articulo::find($idArticulo);
+        $args = $_POST["articulo"];
+        $articulo->sincronizar($args);
+        $errores = $articulo->validar();  
+
+          
+        if(empty($errores)){
+            $articulo->guardar();
+        } else {
+            $_SESSION["respuesta"] = [
+                "articulo" => $articulo,
+                "errores" => $errores
+            ];
+            header("Location: /blog/actualizar?id=". $idArticulo);
+        }
+    }
 }
