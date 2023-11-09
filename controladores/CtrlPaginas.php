@@ -1,8 +1,10 @@
 <?php
 namespace Controlador;
 
+use Utilidades\Email;
 use Modelo\Propiedad;
 use MVC\Router;
+
 class CtrlPaginas
 {
     public static function index(Router $router)
@@ -48,47 +50,24 @@ class CtrlPaginas
 
     public static function vistaContacto(Router $router)
     {
-        $router->render("paginas/contacto");
-    }
-
-    public static function enviarCorreoContacto(Router $router){
-        if($_SERVER["REQUEST_METHOD"] === "POST"){
-            $respuestasFormulario = $_POST["contacto"]; 
-   
-            include __DIR__ . "/../includes/template/credenciales_correo.php";
-            
-            $contenidoCorreo = "<html>";
-            $contenidoCorreo .= "<p>Tienes un nuevo mensaje </p>";
-            $contenidoCorreo .= "<p>Nombre: ". $respuestasFormulario["nombre"] . " </p>";
-            $contenidoCorreo .= "<p>Mensaje: ". $respuestasFormulario["mensaje"] . " </p>";
-
-            $contenidoCorreo .= "<p>Compra o Vende: ". $respuestasFormulario["tipo"] . " </p>";
-            $contenidoCorreo .= "<p>Presupuesto o Precio: $". $respuestasFormulario["precio"] . " </p>";
-
-            if($respuestasFormulario["contacto"] === "teléfono"){
-                $contenidoCorreo .= "<p>Eligio ser contactado por teléfono:</p>";
-                $contenidoCorreo .= "<p>Telefono: ". $respuestasFormulario["telefono"] . " </p>";
-                $contenidoCorreo .= "<p>Fecha de contacto: ". $respuestasFormulario["fecha"] . " </p>";
-                $contenidoCorreo .= "<p>Hora: ". $respuestasFormulario["hora"] . " </p>";
-            }else{
-                $contenidoCorreo .= "<p>Eligió ser contactado por email:</p>";
-                $contenidoCorreo .= "<p>Email: ". $respuestasFormulario["email"] . " </p>";
-            }
-            $contenidoCorreo .= "</html>";
-            $mail->Subject = "Mensaje del formulario de contacto";
-            $mail->Body = $contenidoCorreo;
-            if( $mail->send()){
-                $enviado = true;
-                $mensajeResultado = "El mensaje se envio correctamente";
-            }else{
-                $enviado = false;
-                $mensajeResultado = "Sucedio un error, el mensaje no se pudo enviar";
-            }
+        $mensajeResultado = "";
+        $enviado = "false";
+        if(isset($_SESSION["respuesta"])){
+            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
+            $enviado = $_SESSION["respuesta"]["enviado"];
+            unset($_SESSION["respuesta"]);
         }
         $router->render("paginas/contacto", [
             "mensajeResultado" => $mensajeResultado,
             "enviado" => $enviado
         ]);
+    }
+
+    public static function enviarCorreoContacto(){
+        $email = new Email("contacto");
+        if($email->enviarCorreoContacto()){
+            header("Location: /contacto");
+        }
     }
 }
 
