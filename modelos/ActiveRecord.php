@@ -49,6 +49,19 @@ class ActiveRecord
     }
 
     /**
+     * Encuentra un registro por su correo.
+     *
+     * @param int $id Identificador único del registro.
+     * @return mixed Objeto correspondiente al registro encontrado.
+     */
+    public static function encontrarRegistroPorEmail($columna, $valor) 
+    {
+        $instruccionDeConsultaBD = "SELECT * FROM " . static::$nombreTablaEnBD . " WHERE $columna = '$valor'";
+        $resultado = self::obtenerRegistrosConConsulta($instruccionDeConsultaBD);
+        return array_shift( $resultado ) ;
+    }
+
+    /**
      * Obtiene una cantidad específica de registros.
      *
      * @param int $cantidad Cantidad de registros a obtener.

@@ -61,6 +61,21 @@ class Usuario extends ActiveRecord
     }
 
     /**
+     * Valida el correo ingresado por el usuario y devuelve los errores.
+     *
+     * @return array Errores de validación.
+     */
+    public function validarCorreo() {
+        if(!$this->email) {
+            self::$errores['error'][] = 'El Email es Obligatorio';
+        }
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$errores['error'][] = 'Email no válido';
+        }
+        return self::$errores;
+    }
+
+    /**
      * Comprueba si el usuario existe en la base de datos.
      *
      * @return mixed Resultado de la consulta o falso si el usuario no existe.

@@ -3,6 +3,7 @@ namespace Controlador;
 
 use Modelo\Usuario;
 use MVC\Router;
+use Utilidades\Email;
 
 class CtrlInicioSesion
 {
@@ -35,17 +36,6 @@ class CtrlInicioSesion
     public static function vistaRestablecerContraseña(Router $router)
     {
         $router->render("login/restablecerContraseña");
-    }
-  
-    /**
-     * Muestra la vista de olvidé mi contraseña.
-     *
-     * @param Router $router Objeto Router para renderizar la vista.
-     * @return void
-     */
-    public static function vistaOlvideContraseña(Router $router)
-    {
-        $router->render("login/olvideContraseña");
     }
 
     /**
@@ -102,12 +92,62 @@ class CtrlInicioSesion
     }
 
     /**
+     * Muestra la vista de olvidé mi contraseña.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     * @return void
+     */
+    public static function vistaOlvideContraseña(Router $router)
+    {
+
+        $mensajeResultado = "";
+        $enviado = false;
+        $correcto = false;
+
+        if(isset($_SESSION["respuesta"])){
+            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
+            $enviado = $_SESSION["respuesta"]["enviado"];
+            $correcto = $_SESSION["respuesta"]["correcto"];
+            unset($_SESSION["respuesta"]);
+        }
+
+        $router->render("login/olvideContraseña",[
+            "mensajeResultado" => $mensajeResultado,
+            "enviado" => $enviado,
+            "correcto" => $correcto
+        ]);
+    }
+
+    /**
      * Envia instrucciones al usuario para que restablezca su contraseña .
      *
      * @return void
      */
-    public static function olvideContraseña()
-    {
-        echo "enviando instrucciones...";
+
+     public static function olvideContraseña(Router $router) {
+        $errores = [];
+        $usuario = new Usuario($_POST["email"]);
+        $errores = $usuario->validarCorreo();
+
+        if(empty($errores)) {
+            // Buscar el usuario
+            $usuario = Usuario::encontrarRegistroPorEmail('email', $usuario->email);
+
+            if($usuario) {
+                // Enviar el email
+                $email = new Email( "email" );
+
+                $email->enviarCorreoReestablecerContraseña();
+                header("Location: /olvide-contraseña");
+                exit;
+            }
+        }
+        $_SESSION["respuesta"] = [
+            "mensajeResultado" => "Ingrese un correo válido",
+            "correcto" => false,
+            "enviado" => false
+        ];
+        header("Location: /olvide-contraseña");
+
     }
 }
