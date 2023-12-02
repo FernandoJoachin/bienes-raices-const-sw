@@ -16,15 +16,17 @@ class CtrlArticulo
     public static function vistaCrearArticulo(Router $router)
     {
         estaAutenticado();
+    
         $articulo = new Articulo();
         $errores = [];
-
+    
         if (isset($_SESSION["respuesta"])) {
-            $articulo = $_SESSION["respuesta"]["articulo"];
-            $errores = $_SESSION["respuesta"]["errores"];
-            unset($_SESSION["respuesta"]);
+            $respuesta = $_SESSION["respuesta"];
+            $articulo = $respuesta["articulo"];
+            $errores = $respuesta["errores"];
+            unset($respuesta);
         }
-
+    
         $router->render("articulos/crear", [
             "articulo" => $articulo,
             "errores" => $errores
@@ -63,19 +65,15 @@ class CtrlArticulo
      */
     public static function crearArticulo()
     {
-        $articulo = new Articulo($_POST["articulo"]);
+        $datosArticulo = $_POST["articulo"];
+        $articulo = new Articulo($datosArticulo);
         $errores = $articulo->validarErrores();
-        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
         if ($_FILES['articulo']['tmp_name']["imagen"]) {
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
             $imagen = Image::make($_FILES['articulo']['tmp_name']["imagen"])->fit(800, 600);
             $articulo->establecerImagen($nombreImagen);
         }
-
-        $_SESSION["respuesta"] = [
-            "articulo" => $articulo,
-            "errores" => $errores
-        ];
 
         if (empty($errores)) {
             if (!is_dir(CARPETA_IMG)) {
