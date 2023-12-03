@@ -1,6 +1,7 @@
 <?php
 namespace Controlador;
 
+use Modelo\Usuario;
 use MVC\Router;
 class CtrlUsuario
 {
@@ -12,7 +13,22 @@ class CtrlUsuario
     */
     public static function vistaCrearUsuario(Router $router)
     {
-        $router->render("usuarios/crear");
+        estaAutenticado();
+        $usuario = new Usuario();
+
+        $errores = [];
+
+        if(isset($_SESSION["respuesta"])){
+            $usuario = $_SESSION["respuesta"]["usuario"];
+            $errores = $_SESSION["respuesta"]["errores"];
+            unset($_SESSION["respuesta"]);
+        }
+
+        $router->render("usuarios/crear", [
+            "usuario" => $usuario,
+            "errores" =>  $errores
+        ]);
+
     }
 
     /**
@@ -22,6 +38,27 @@ class CtrlUsuario
     */
     public static function crearUsuario()
     {
-        echo "creando usuario...";
+        $usuario = new Usuario($_POST);
+
+        $usuario->validarConfirmacionDeContraseña($_POST["c-password"]);
+
+        $usuario->buscarPorColumna("email", $_POST["email"]);
+
+        $errores = $usuario->validarErrores();
+
+        if (empty($errores)) {
+            $usuario->hashearContraseña();
+            $usuario->almacenarEnBD();
+        } else {
+            $_SESSION["respuesta"] = [
+                "usuario" => $usuario,
+                "errores" => $errores
+            ];
+            header("Location: /usuarios/crear");
+            exit;
+        }
+        
     }
+
+    
 }
