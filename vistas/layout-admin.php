@@ -15,6 +15,9 @@ $auth = $_SESSION["login"] ?? false;
 
   <link rel="preload" href="/build/css/admin-app.css" as="style">
   <link rel="stylesheet" href="/build/css/admin-app.css">
+  <link rel="preload" href="/build/css/app.css" as="style">
+  <link rel="stylesheet" href="/build/css/app.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Bienes raices | Dashboard</title>
 </head>
 

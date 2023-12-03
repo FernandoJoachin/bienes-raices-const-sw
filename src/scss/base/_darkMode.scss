@@ -51,4 +51,16 @@
             }
         }
     }
+
+    .table{
+        &__thead{
+            background-color: #4d4d4d;
+        }
+
+        &__tr{
+            &:nth-of-type(even){
+                background-color: #666;
+            }
+        }
+    }
 }

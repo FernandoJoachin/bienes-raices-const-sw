@@ -154,4 +154,12 @@
             padding: 1rem 5rem 3rem 5rem;
         }
     }
+
+    &__contenedor-boton{
+        @include m.tablet{
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 4rem;
+        }
+    }
 }
