@@ -126,6 +126,11 @@ class CtrlArticulo
         }
     }
 
+    /**
+     * Elimina un artículo existente.
+     *
+     * @return void
+     */
     public static function eliminarArticulo()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -134,7 +139,7 @@ class CtrlArticulo
             $idArticulo = filter_var($idArticulo, FILTER_VALIDATE_INT);
     
             if ($idArticulo) {
-                $tipo = $_POST['type'];
+                $tipo = $_POST['tipo'];
     
                 if (validarTipoContenido($tipo)) {
                     $article = Articulo::encontrarRegistroPorId($idArticulo);
