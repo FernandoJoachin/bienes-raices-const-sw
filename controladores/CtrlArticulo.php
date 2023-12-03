@@ -104,9 +104,18 @@ class CtrlArticulo
         $articulo = Articulo::encontrarRegistroPorId($idArticulo);
         $args = $_POST["articulo"];
         $articulo->sincronizarCambiosConObjeto($args);
-        $errores = $articulo->validarErrores();  
+        $errores = $articulo->validarErrores(); 
+        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+
+        if ($_FILES['articulo']['tmp_name']["imagen"]) {
+            $imagen = Image::make($_FILES['articulo']['tmp_name']["imagen"])->fit(800, 600);
+            $articulo->establecerImagen($nombreImagen);
+        }
 
         if (empty($errores)) {
+            if ($_FILES['articulo']['tmp_name']["imagen"]) {
+               $imagen->save(CARPETA_IMG . $nombreImagen);
+            }
             $articulo->almacenarEnBD();
         } else {
             $_SESSION["respuesta"] = [
