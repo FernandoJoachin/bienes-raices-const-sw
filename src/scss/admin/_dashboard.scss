@@ -6,12 +6,6 @@
     display: flex;
     flex-direction: column;
 
-    @include m.tablet {
-        &::-webkit-scrollbar {
-            width: 0;
-            background: transparent;
-        }
-    }
     &__barra {
         display: flex;
         flex-wrap: wrap;
