@@ -59,6 +59,11 @@ function mostrarNotificacion($codigo)
     return $mensaje;
 }
 
+//Verifica la coincidencia de ruta
+function validarPaginaActual($ruta) : bool {
+    return str_contains($_SERVER['PATH_INFO'] ?? '/',$ruta) ? true : false;
+}
+
 function validarORedireccionar(String $url)
 {
     $id = $_GET["id"];
