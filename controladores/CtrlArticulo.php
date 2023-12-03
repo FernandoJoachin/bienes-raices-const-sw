@@ -125,4 +125,27 @@ class CtrlArticulo
             header("Location: /articulos/actualizar?id=". $idArticulo);
         }
     }
+
+    /**
+     * Elimina un artículo existente.
+     *
+     * @return void
+     */
+    public static function eliminarArticulo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $idArticulo = $_POST['id'];
+            $idArticulo = filter_var($idArticulo, FILTER_VALIDATE_INT);
+    
+            if ($idArticulo) {
+                $tipo = $_POST['tipo'];
+    
+                if (validarTipoContenido($tipo)) {
+                    $article = Articulo::encontrarRegistroPorId($idArticulo);
+                    $article->borrarRegistroBD();
+                }
+            }
+        }
+    }
 }
