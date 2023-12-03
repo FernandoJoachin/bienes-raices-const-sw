@@ -61,6 +61,29 @@ class Usuario extends ActiveRecord
     }
 
     /**
+     * Valida si en los campos de "contraseña" y "confirmar contraseña" fueron
+     * puestos los mismos valores.
+     *
+     * @return void Errores de validación.
+     */
+    public function validarConfirmacionDeContraseña($contraseñaConfirmada)
+    {
+        if ($this->password !== $contraseñaConfirmada) {
+            self::$errores[] = "Las contraseñas deben ser iguales.";
+        }
+    }
+    
+    /**
+     * Hace el Hash de la contraseña del usuario para guardarla en la base 
+     * de datos.
+     *
+     * @return void
+     */
+    public function hashearContraseña(){
+        $this->password =  password_hash($this->password, PASSWORD_BCRYPT);
+    }
+
+    /**
      * Comprueba si el usuario existe en la base de datos.
      *
      * @return mixed Resultado de la consulta o falso si el usuario no existe.
@@ -104,4 +127,5 @@ class Usuario extends ActiveRecord
         header("Location: /admin");
         exit;
     }
+
 }
