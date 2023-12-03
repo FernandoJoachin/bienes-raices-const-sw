@@ -33,7 +33,7 @@ function limpiarHTML($html)
 //Validar contenido
 function validarTipoContenido($tipo)
 {
-    $tipos = ["vendedor","propiedad"];
+    $tipos = ["vendedor","propiedad", "articulo"];
     return in_array($tipo,$tipos);
 }
 
@@ -57,6 +57,11 @@ function mostrarNotificacion($codigo)
     }
     
     return $mensaje;
+}
+
+//Verifica la coincidencia de ruta
+function validarPaginaActual($ruta) : bool {
+    return str_contains($_SERVER['PATH_INFO'] ?? '/',$ruta) ? true : false;
 }
 
 function validarORedireccionar(String $url)

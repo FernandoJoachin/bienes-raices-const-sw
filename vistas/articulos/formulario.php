@@ -8,7 +8,8 @@
   <input type="file" id="imagen" accept="image/jpeg, image/png" name="articulo[imagen]">
 
   <?php if ($articulo->imagen) : ?>
-    <img class="image-small" src="/imagenes/<?php echo $articulo->imagen ?>">
+    <label>Imagen Actual</label>
+    <img class="img-small" src="/imagenes/<?php echo $articulo->imagen ?>">
   <?php endif; ?>
 
   <label for="descripcion">Descripción:</label>

@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `articulos`
+--
+
+DROP TABLE IF EXISTS `articulos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `articulos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `autor` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `titulo` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `descripcion` text COLLATE utf8mb4_unicode_ci,
+  `contenido` text COLLATE utf8mb4_unicode_ci,
+  `imagen` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articulos`
+--
+
+LOCK TABLES `articulos` WRITE;
+/*!40000 ALTER TABLE `articulos` DISABLE KEYS */;
+INSERT INTO `articulos` VALUES (1,'uhijnkm','2023-12-03','strxdycfbhijnmk,l','bhnklmldfgunjmknbgvcfxtcfyvbhnjmjnbhugvyuctycfvgbhnijm','ygiioiojohi','86eb87a71b3788699315035d0d82459f.jpg');
+/*!40000 ALTER TABLE `articulos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `propiedades`
 --
 
@@ -30,13 +59,13 @@ CREATE TABLE `propiedades` (
   `descripcion` longtext,
   `habitaciones` int DEFAULT NULL,
   `wc` int DEFAULT NULL,
-  `estacionamiento` int DEFAULT NULL,
+  `estacionamiento` varchar(45) DEFAULT NULL,
   `creado` date DEFAULT NULL,
   `vendedores_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_propiedades_vendedores_idx` (`vendedores_id`),
-  CONSTRAINT `fk_propiedades_vendedores` FOREIGN KEY (`vendedores_id`) REFERENCES `vendedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
+  KEY `fk_propiedades_vendedores1_idx` (`vendedores_id`),
+  CONSTRAINT `fk_propiedades_vendedores1` FOREIGN KEY (`vendedores_id`) REFERENCES `vendedores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +74,7 @@ CREATE TABLE `propiedades` (
 
 LOCK TABLES `propiedades` WRITE;
 /*!40000 ALTER TABLE `propiedades` DISABLE KEYS */;
-INSERT INTO `propiedades` VALUES (3,'Casa en el bosque',10000.00,'7edbe4a889911e3ae191aa0cdd4481d9.jpg','Casa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playa',5,5,5,'2023-05-04',1),(7,'Cabaña en el bosque',1500000.00,'6b94ab4acb1559c312685ac50780233a.jpg','Casa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playa',3,3,3,'2023-05-04',1),(8,'Casa de la playa',120.00,'f63baaeccd5d1eb0e3c648603b97911c.jpg','Casa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playa',3,2,1,'2023-05-06',1),(9,'Cabaña en el bosque',120000.00,'d5e855d5dfbef5e6b70fe7de4a5ddc11.jpg','Cabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosqueCabaña en el bosque',3,3,3,'2023-05-06',1),(10,'Casa normal',450000.00,'530fad86989a81a5d091ada36e9529ae.jpg','Casa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playa',3,3,3,'2023-05-06',2),(11,'Casa elegante',500000.00,'3ca6a1a685b20595fca6acb5226223ae.jpg','Casa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playaCasa de la playa',3,3,3,'2023-05-06',2),(22,'Hermosa casa en la playa',100.00,'6ace2b8827ba61266e5dcd06e2a75801.jpg','Hermosa casa en la playaHermosa casa en la playaHermosa casa en la playaHermosa casa en la playaHermosa casa en la playa',2,2,5,'2023-05-10',1),(29,'Casa de la montaña',2.00,'b3a1539fd3988c2240a52f72a2995ae5.jpg','Casa prueba(ActuSQLCasa prueba(ActuSQLCasa prueba(ActuSQLCasa prueba(ActuSQLCasa prueba(ActuSQL',1,1,1,'2023-05-13',1);
+INSERT INTO `propiedades` VALUES (39,' Nueva casa bonita',784651.00,'187e53a85249c8ef47f635fcfaeb71bf.jpg','Mensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de prueva',2,3,'4','2023-05-16',1),(40,' Otra casa',4657899.00,'6ee1dbff90804af833e7d74e53b7fcf7.jpg','Mensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de prueva',8,9,'2','2023-05-16',2),(55,' Casa nueva nueva ',67845.00,'f2ff1adc71bd933e2f8ad0d433f89aab.jpg','propiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedad',5,5,'6','2023-05-30',1),(59,' Casa en la playa MVC',79864531.00,'1b2e08a48ad1cfd82ee5c3befa90477b.jpg','Casa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVC',2,4,'4','2023-06-02',5);
 /*!40000 ALTER TABLE `propiedades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +92,7 @@ CREATE TABLE `usuarios` (
   `token` varchar(13) DEFAULT NULL,
   `estaConfirmado` tinyint DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +101,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (2,'correo@correo.com','$2y$10$ZGmBopAxEYtFZc9UWE4yye82PxMeeg1zEuCEIDosLtG4W0yIbDmny',NULL,0);
+INSERT INTO `usuarios` VALUES (2,'correo@correo.com','$2y$10$ZGmBopAxEYtFZc9UWE4yye82PxMeeg1zEuCEIDosLtG4W0yIbDmny');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +118,7 @@ CREATE TABLE `vendedores` (
   `apellido` varchar(45) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +127,7 @@ CREATE TABLE `vendedores` (
 
 LOCK TABLES `vendedores` WRITE;
 /*!40000 ALTER TABLE `vendedores` DISABLE KEYS */;
-INSERT INTO `vendedores` VALUES (1,'Fernando','Joachin','9995683452'),(2,'Roberto','Castillo','9993459761'),(4,'Franco','Gonzalez','9998697542');
+INSERT INTO `vendedores` VALUES (1,'Carlos','May','9993240893'),(2,'Benito','Martínez','7884412154'),(5,' Andrea','González','9998451274'),(6,' Cristiano Actualizado','Ronaldo','7854123654');
 /*!40000 ALTER TABLE `vendedores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -111,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-02 21:08:36
+-- Dump completed on 2023-05-13  4:26:49
