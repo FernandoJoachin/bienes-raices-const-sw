@@ -48,7 +48,7 @@ $router->post("/vendedores/eliminar", [CtrlVendedor::class, "eliminarVendedor"])
 $router->get("/articulos/crear",[CtrlArticulo::class, "vistaCrearArticulo"]);
 $router->get("/articulos/actualizar",[CtrlArticulo::class, "vistaActualizarArticulo"]);
 $router->post("/articulos/crear",[CtrlArticulo::class, "crearArticulo"]);
-$router->post("/articulos/crear",[CtrlArticulo::class, "actualizarArticulo"]);
+$router->post("/articulos/actualizar",[CtrlArticulo::class, "actualizarArticulo"]);
 
 $router->get("/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
 $router->post("/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);
