@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: bienesraices_crud
 -- ------------------------------------------------------
--- Server version	8.0.33
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -60,6 +60,8 @@ CREATE TABLE `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(45) DEFAULT NULL,
   `password` char(60) DEFAULT NULL,
+  `token` varchar(13) DEFAULT NULL,
+  `estaConfirmado` tinyint DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -70,7 +72,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (2,'correo@correo.com','$2y$10$ZGmBopAxEYtFZc9UWE4yye82PxMeeg1zEuCEIDosLtG4W0yIbDmny');
+INSERT INTO `usuarios` VALUES (2,'correo@correo.com','$2y$10$ZGmBopAxEYtFZc9UWE4yye82PxMeeg1zEuCEIDosLtG4W0yIbDmny',NULL,0);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-13  4:26:49
+-- Dump completed on 2023-12-02 21:08:36
