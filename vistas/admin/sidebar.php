@@ -17,21 +17,31 @@
       <span class="dashboard__menu-texto">Propiedades</span>
     </a>
 
-    <a href="/admin/blog" class="dashboard__enlace <?php echo validarPaginaActual("/blog") ? "dashboard__enlace--actual" : ""; ?>">
+    <a href="/admin/articulos" class="dashboard__enlace <?php echo validarPaginaActual("/articulos") ? "dashboard__enlace--actual" : ""; ?>">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
       </svg>
 
-      <span class="dashboard__menu-texto">Blog</span>
+      <span class="dashboard__menu-texto">Articulos</span>
     </a>
 
     <a href="/admin/vendedores" class="dashboard__enlace <?php echo validarPaginaActual("/vendedores") ? "dashboard__enlace--actual" : ""; ?>">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+        <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5" />
+        <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85z" />
+      </svg>
+
+      <span class="dashboard__menu-texto">Vendedores</span>
+    </a>
+
+    <a href="/admin/usuarios" class="dashboard__enlace <?php echo validarPaginaActual("/usuarios") ? "dashboard__enlace--actual" : ""; ?>">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
       </svg>
 
-      <span class="dashboard__menu-texto">Vendedores</span>
+
+      <span class="dashboard__menu-texto">Administradores</span>
     </a>
   </nav>
 </aside>

@@ -8,29 +8,36 @@
 
     &__barra {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         align-items: center;
-
-        @include m.tablet {
-            flex-direction: row;
-            justify-content: space-between;
-        }
+        justify-content: space-between;
     }
     &__header {
         background-color: darken(v.$gris, 80%);
-        padding: 1rem 2rem 1rem 0;
+        padding: 1rem 0;
     }
     &__header-contenido {
         display: flex;
+        flex: 2;
+        min-width: 39.8rem;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         visibility: hidden;
         opacity: 0;
         height: 0;
         transition: all 150ms ease;
-
+        &--row {
+            width: 100%;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            gap: 2rem;
+        }
         @include m.tablet {
             flex-direction: row;
+            flex: none;
+            align-items: center;
             visibility: visible;
             opacity: 1;
             height: auto;
@@ -46,6 +53,7 @@
     &__bienvenida {
         color: v.$blanco;
         font-size: 2.5rem;
+        text-wrap: nowrap;
         
         &--nombre {
             font-size: 2.5rem;
@@ -55,20 +63,17 @@
     }
     &__logout {
         @include m.boton(v.$amarillo, block);
-        margin-top: 2.5rem;
+        margin-top: 0;
         border-radius: 1.5rem;
-
-        @include m.tablet {
-            margin-top: 0;
-        }
     }
+
     &__dark-mode-btn{
         width: 4rem;
         filter: invert(100%);
-        margin-top: 1rem;
+        margin-top: 0;
     
         @include m.tablet{
-            margin-bottom: 2rem;
+            margin-right: 2rem;
             order: 2;
         }
     
@@ -77,7 +82,7 @@
         }
     }
     &__mobile-menu{
-        margin-top: 2rem;
+        margin: 0 2rem 0 0;
     
         @include m.tablet{
             display: none;
@@ -101,7 +106,7 @@
         background-color: darken(v.$gris, 80%);
 
         @include m.tablet {
-            background-color: lighten(v.$gris, 10);
+            background-color: lighten(v.$gris, 5);
 
             width: 12rem;
         }
@@ -110,16 +115,13 @@
         padding: 1rem;
         display: flex;
         justify-content: center;
+        gap: .5rem;
 
         @include m.tablet {
             flex-direction: column;
         }
         a {
             margin-bottom: 1rem;
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
         }
     }
     &__enlace {

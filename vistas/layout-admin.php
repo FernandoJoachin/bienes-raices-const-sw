@@ -35,10 +35,12 @@ $auth = $_SESSION["login"] ?? false;
 
       <div id="navegacion" class="dashboard__header-contenido">
         <p class="dashboard__bienvenida">Bienvenido, <span class="dashboard__bienvenida--nombre">Admin</span></p>
-        <img id="dark-mode-boton" class="dashboard__dark-mode-btn" src="/build/img/dark-mode.svg" alt="dark mode">
-        <?php if (true) { ?>
-          <a class="dashboard__logout" href="/cerrar-sesion">Cerrar Sesión</a>
-        <?php } ?>
+        <div class="dashboard__header-contenido--row">
+          <img id="dark-mode-boton" class="dashboard__dark-mode-btn" src="/build/img/dark-mode.svg" alt="dark mode">
+          <?php if (true) { ?>
+            <a class="dashboard__logout" href="/cerrar-sesion">Cerrar Sesión</a>
+          <?php } ?>
+        </div>
       </div>
     </div>
   </header>

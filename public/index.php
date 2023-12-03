@@ -47,10 +47,11 @@ $router->post("/admin/vendedores/crear", [CtrlVendedor::class, "crearVendedor"])
 $router->post("/admin/vendedores/actualizar", [CtrlVendedor::class, "actualizarVendedor"]);
 $router->post("/admin/vendedores/eliminar", [CtrlVendedor::class, "eliminarVendedor"]);
 
-$router->get("/admin/articulos/crear",[CtrlArticulo::class, "vistaCrearArticulo"]);
-$router->get("/admin/articulos/actualizar",[CtrlArticulo::class, "vistaActualizarArticulo"]);
-$router->post("/admin/articulos/crear",[CtrlArticulo::class, "crearArticulo"]);
-$router->post("/admin/articulos/crear",[CtrlArticulo::class, "actualizarArticulo"]);
+$router->get("/articulos/crear",[CtrlArticulo::class, "vistaCrearArticulo"]);
+$router->get("/articulos/actualizar",[CtrlArticulo::class, "vistaActualizarArticulo"]);
+$router->post("/articulos/crear",[CtrlArticulo::class, "crearArticulo"]);
+$router->post("/articulos/actualizar",[CtrlArticulo::class, "actualizarArticulo"]);
+$router->post("/articulos/eliminar", [CtrlArticulo::class, "eliminarArticulo"]);
 
 $router->get("/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
 $router->post("/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);
