@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 function eventListeners(){
-    const mobileMenu = document.querySelector(".mobile-menu")
+    const mobileMenu = document.querySelector("#mobile-menu")
 
     mobileMenu.addEventListener("click", navegacionResponsive);
     const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
@@ -33,7 +33,7 @@ function mostrarMetodosContacto(evento){
 }
 
 function navegacionResponsive(){
-    const navegacion = document.querySelector(".navegacion");
+    const navegacion = document.querySelector("#navegacion");
     navegacion.classList.toggle("mostrar");
 }
 
@@ -53,7 +53,7 @@ function darkMode(){
         }
     })
 
-    const botonDarkMode = document.querySelector(".dark-mode-boton");
+    const botonDarkMode = document.querySelector("#dark-mode-boton");
     botonDarkMode.addEventListener("click", function(){
         document.body.classList.toggle("dark-mode");
     })

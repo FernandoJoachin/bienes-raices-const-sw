@@ -76,6 +76,13 @@ class Router
         ob_start();
         include __DIR__ . "/vistas/{$view}.php";
         $contenido = ob_get_clean();
-        include __DIR__ . "/vistas/layout.php";
+        
+        $url_actual = $_SERVER['PATH_INFO'] ?? '/';
+
+        if(str_contains($url_actual, '/admin')) {
+            include_once __DIR__ . '/vistas/layout-admin.php';
+        } else {
+            include_once __DIR__ . '/vistas/layout.php';
+        }
     }
 }
