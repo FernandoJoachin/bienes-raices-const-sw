@@ -11,5 +11,5 @@
     <?php include __DIR__ . "/formulario.php" ?>
     <input type="submit" value="Actualizar Artículo" class="boton boton-verde">
   </form>
-  <a href="/admin" class="boton boton-amarillo">Volver</a>
+  <a href="/admin/articulos" class="boton boton-amarillo">Volver</a>
 </main>
