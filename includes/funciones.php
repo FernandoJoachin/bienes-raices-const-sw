@@ -33,7 +33,7 @@ function limpiarHTML($html)
 //Validar contenido
 function validarTipoContenido($tipo)
 {
-    $tipos = ["vendedor","propiedad"];
+    $tipos = ["vendedor","propiedad", "articulo"];
     return in_array($tipo,$tipos);
 }
 
