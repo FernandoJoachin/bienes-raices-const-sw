@@ -67,13 +67,14 @@ class CtrlArticulo
     {
         $datosArticulo = $_POST["articulo"];
         $articulo = new Articulo($datosArticulo);
-        $errores = $articulo->validarErrores();
 
         if ($_FILES['articulo']['tmp_name']["imagen"]) {
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
             $imagen = Image::make($_FILES['articulo']['tmp_name']["imagen"])->fit(800, 600);
             $articulo->establecerImagen($nombreImagen);
         }
+
+        $errores = $articulo->validarErrores();
 
         if (empty($errores)) {
             if (!is_dir(CARPETA_IMG)) {
