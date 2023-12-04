@@ -1,13 +1,13 @@
 <main class="contenedor seccion">
   <h1>Más Sobre Nosotros</h1>
-  <?php include "iconos.php"; ?>
+  <?php include_once "iconos.php"; ?>
 </main>
 
 <section class="seccion contenedor">
   <h1>Casas y Departamentos en Venta</h1>
 
   <?php
-  include "listadoPropiedades.php";
+  include_once "listadoPropiedades.php";
   ?>
 
   <div class="ver-todas alinear-derecha">
@@ -25,7 +25,7 @@
   <section class="blog">
     <h3>Nuestro blog</h3>
     <?php
-    include "listadoArticulos.php";
+    include_once "listadoArticulos.php";
     ?>
   </section>
 

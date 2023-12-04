@@ -35,9 +35,7 @@ $auth = $_SESSION["login"] ?? false;
         <p class="dashboard__bienvenida">Bienvenido, <span class="dashboard__bienvenida--nombre">Admin</span></p>
         <div class="dashboard__header-contenido--row">
           <img id="dark-mode-boton" class="dashboard__dark-mode-btn" src="/build/img/dark-mode.svg" alt="dark mode">
-          <?php if (true) { ?>
             <a class="dashboard__logout" href="/cerrar-sesion">Cerrar Sesión</a>
-          <?php } ?>
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ class Router
             $$key = $value;
         }
         ob_start();
-        include __DIR__ . "/vistas/{$view}.php";
+        include_once __DIR__ . "/vistas/{$view}.php";
         $contenido = ob_get_clean();
         
         $url_actual = $_SERVER['PATH_INFO'] ?? '/';

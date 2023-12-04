@@ -9,7 +9,7 @@
 
   <?php if ($articulo->imagen) : ?>
     <label>Imagen Actual</label>
-    <img class="img-small" src="/imagenes/<?php echo $articulo->imagen ?>">
+    <img class="img-small" src="/imagenes/<?php echo $articulo->imagen ?>" alt="Imagen <?php echo $articulo->titulo; ?>">
   <?php endif; ?>
 
   <label for="descripcion">Descripción:</label>

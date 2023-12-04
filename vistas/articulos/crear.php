@@ -8,7 +8,7 @@
   <?php endforeach; ?>
 
   <form class="formulario" method="POST" enctype="multipart/form-data">
-    <?php include __DIR__ . "/formulario.php" ?>
+    <?php include_once __DIR__ . "/formulario.php" ?>
     <input type="submit" value="Crear Artículo" class="boton boton-verde">
   </form>
   <a href="/admin/articulos" class="boton boton-amarillo">Volver</a>

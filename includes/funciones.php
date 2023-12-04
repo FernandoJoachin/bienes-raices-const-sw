@@ -4,7 +4,7 @@ define("FUNCIONES_URL", __DIR__ . "funciones.php");
 define("CARPETA_IMG", $_SERVER["DOCUMENT_ROOT"] . "/imagenes/");
 function incluirTemplate(string $nombre, bool $inicio = false)
 {
-    include TEMPLATES_URL . "/{$nombre}.php";
+    include_once TEMPLATES_URL . "/{$nombre}.php";
 }
 
 function estaAutenticado() 

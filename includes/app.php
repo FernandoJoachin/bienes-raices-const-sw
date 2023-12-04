@@ -1,7 +1,7 @@
 <?php
-require "funciones.php";
-require "config/database.php";
-require __DIR__ . "/../vendor/autoload.php";
+require_once "funciones.php";
+require_once "config/database.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 use Modelo\ActiveRecord;
 $db = conectarDB();
 ActiveRecord::establecerBD($db);

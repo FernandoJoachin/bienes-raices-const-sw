@@ -5,12 +5,13 @@
     <p class="alerta exito"><?php echo limpiarHTML($mensaje); ?></p>
   <?php }; ?>
 <div class="dashboard__contenedor-boton">
-    <a href="/admin/propiedades/crear" class="boton boton-amarillo"><li class="fa-solid fa-circle-plus"></li> Ir a Crear Propiedad</a>
+    <a href="/admin/propiedades/crear" class="boton boton-amarillo"><i class="fa-solid fa-circle-plus"></i> Ir a Crear Propiedad</a>
 </div>
 
 <div class="dashboard__contenedor">
     <?php if(!empty($propiedades)){?>
         <table class="table">
+            <caption>Tabla Propiedades</caption>
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table_th">ID</th>

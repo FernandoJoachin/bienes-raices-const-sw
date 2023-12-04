@@ -5,12 +5,13 @@
     <p class="alerta exito"><?php echo limpiarHTML($mensaje); ?></p>
   <?php }; ?>
 <div class="dashboard__contenedor-boton">
-    <a href="/admin/usuarios/crear" class="boton boton-amarillo"><li class="fa-solid fa-circle-plus"></li> Ir a Crear usuario</a>
+    <a href="/admin/usuarios/crear" class="boton boton-amarillo"><i class="fa-solid fa-circle-plus"></i> Ir a Crear usuario</a>
 </div>
 
 <div class="dashboard__contenedor">
     <?php if(!empty($usuarios)){?>
         <table class="table">
+            <caption>Tabla Usuarios</caption>
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table_th">ID</th>

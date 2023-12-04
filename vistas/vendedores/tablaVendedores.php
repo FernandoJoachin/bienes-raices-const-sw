@@ -5,12 +5,13 @@
     <p class="alerta exito"><?php echo limpiarHTML($mensaje); ?></p>
   <?php }; ?>
 <div class="dashboard__contenedor-boton">
-    <a href="/admin/vendedores/crear" class="boton boton-amarillo"><li class="fa-solid fa-circle-plus"></li> Ir a Crear Vendedores</a>
+    <a href="/admin/vendedores/crear" class="boton boton-amarillo"><i class="fa-solid fa-circle-plus"></i> Ir a Crear Vendedores</a>
 </div>
 
 <div class="dashboard__contenedor">
     <?php if(!empty($vendedores)){?>
         <table class="table">
+            <caption>Tabla Vendedores</caption>
             <thead class="table__thead">
                 <tr>
                     <th scope="col" class="table_th">ID</th>

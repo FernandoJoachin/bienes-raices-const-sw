@@ -6,7 +6,7 @@
         </div>
     <?php }?>
     <form class="formulario" method="POST" enctype="multipart/form-data">
-        <?php include __DIR__ . "/formulario.php" ?>
+        <?php include_once __DIR__ . "/formulario.php" ?>
         <input type="submit" value="Crear Propiedad" class="boton boton-verde">
     </form>
     <a href="/admin/propiedades" class="boton boton-amarillo">Volver</a>

@@ -10,7 +10,7 @@
     <input type="file" id="img" name="propiedad[img]" accept="image/jpeg, image/png">
 
     <?php if($propiedad->imagen){ ?>
-        <img class="img-small" src="/imagenes/<?php echo $propiedad->imagen ?>">
+        <img class="img-small" src="/imagenes/<?php echo $propiedad->imagen ?>" alt="Imagen <?php echo $propiedad->titulo; ?>">
     <?php } ?>   
 
     <label for="descripcion">Descripcion</label>

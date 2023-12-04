@@ -6,7 +6,7 @@
         </div>
     <?php }?>
   <form class="formulario" method="POST">
-    <?php include __DIR__ . "/formulario.php" ?>
+    <?php include_once __DIR__ . "/formulario.php" ?>
     <input type="submit" value="Crear Usuario(a)" class="boton boton-verde">
   </form>
   <a href="/admin/usuarios" class="boton boton-amarillo">Volver</a>
