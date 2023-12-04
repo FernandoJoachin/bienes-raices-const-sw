@@ -9,5 +9,5 @@
         <?php include __DIR__ . "/formulario.php" ?>
         <input type="submit" value="Crear Propiedad" class="boton boton-verde">
     </form>
-    <a href="/admin" class="boton boton-amarillo">Volver</a>
+    <a href="/admin/propiedades" class="boton boton-amarillo">Volver</a>
 </main>
