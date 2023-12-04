@@ -3,6 +3,7 @@ namespace Controlador;
 
 use Modelo\Usuario;
 use MVC\Router;
+use Utilidades\Email;
 
 class CtrlInicioSesion
 {
@@ -43,9 +44,25 @@ class CtrlInicioSesion
      * @param Router $router Objeto Router para renderizar la vista.
      * @return void
      */
-    public static function vistaOlvideContraseña(Router $router)
+    public static function vistaRecuperarContraseña(Router $router)
     {
-        $router->render("login/olvideContraseña");
+        $errores = [];
+
+        $mensajeResultado = "";
+        $enviado = "false";
+
+        if(isset($_SESSION["respuesta"])){
+            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
+            $enviado = $_SESSION["respuesta"]["enviado"];
+            $errores = $_SESSION["respuesta"]["errores"];
+            unset($_SESSION["respuesta"]);
+        }
+
+        $router->render("login/olvideContraseña", [
+            "mensajeResultado" => $mensajeResultado,
+            "enviado" => $enviado,
+            "errores" => $errores
+        ]);
     }
 
     /**
@@ -106,8 +123,34 @@ class CtrlInicioSesion
      *
      * @return void
      */
-    public static function olvideContraseña()
+    public static function recuperarContraseña()
     {
-        echo "enviando instrucciones...";
+        $usuario = new Usuario($_POST);
+        $usuario->validarEmail();
+        $errores = Usuario::obtenerErrores();
+
+        if (empty($errores)) {
+            $usuario = Usuario::buscarPorColumna('email', $usuario->email);
+
+            if($usuario && $usuario->estaConfirmado) {
+                $usuario->crearToken();
+
+                $usuario->almacenarEnBD();
+                
+                $datosUsuario = [
+                    "email" => $usuario->email,
+                    "nombre" => $usuario->nombre,
+                    "token" => $usuario->token
+                ];
+                
+                $email = new Email( $datosUsuario );
+                $email->enviarInstrucciones();
+
+            } 
+
+            $_SESSION["respuesta"] = [
+                "errores" => $errores
+            ];
+        }
     }
 }

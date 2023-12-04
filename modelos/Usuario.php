@@ -31,6 +31,16 @@ class Usuario extends ActiveRecord
     public $password;
 
     /**
+     * @var bool Indica el estado de confirmación del usuario: 1 si está confirmado, 0 si no está confirmado.
+     */
+    public $estaConfirmado;
+
+    /**
+     * @var string Token de confirmación.
+     */
+    public $token;
+
+    /**
      * Constructor de la clase Usuario.
      *
      * @param array $args Argumentos para inicializar el objeto Usuario.
@@ -40,6 +50,8 @@ class Usuario extends ActiveRecord
         $this->id = $args["id"] ?? null;
         $this->email = $args["email"] ?? "";
         $this->password = $args["password"] ?? "";
+        $this->estaConfirmado = $args["estaConfirmado"] ?? false;
+        $this->token = $args["token"] ?? "";
     }
 
     /**
@@ -49,15 +61,42 @@ class Usuario extends ActiveRecord
      */
     public function validarErrores()
     {
-        if (!$this->email) {
-            self::$errores[] = "El email es obligatorio.";
-        }
-
-        if (!$this->password) {
-            self::$errores[] = "El password es obligatorio.";
-        }
+        self::$errores = [];
+        
+        $this->validarEmail();
+        $this->validarPassword();
 
         return self::$errores;
+    }
+
+    /**
+     * Valida la dirección de correo electrónico.
+     *
+     * @return void.
+     */
+    public function validarEmail() {
+        self::$errores = [];
+
+        if(!$this->email) {
+            self::$errores[] = 'El email es obligatorio.';
+        }else if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$errores[] = 'Email no válido';
+        }
+    }
+
+    /**
+     * Valida la contraseña del usuario.
+     *
+     * @return void.
+     */
+    public function validarPassword() {
+        self::$errores = [];
+
+        if(!$this->password) {
+            self::$errores[] = 'El password es obligatorio.';
+        }else if(strlen($this->password) < 6) {
+            self::$errores[] = 'El password debe contener al menos 6 caracteres.';
+        }
     }
 
     /**
@@ -128,4 +167,12 @@ class Usuario extends ActiveRecord
         exit;
     }
 
+    /**
+     * Genera un token único y lo asigna a la propiedad $token de la instancia actual.
+     *
+     * @return void
+     */
+    public function crearToken() {
+        $this->token = uniqid();
+    }
 }

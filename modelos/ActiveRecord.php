@@ -152,6 +152,19 @@ class ActiveRecord
     
 
     /**
+     * Busca un registro en la base de datos por el valor de una columna específica.
+     *
+     * @param string $columna Nombre de la columna por la cual realizar la búsqueda.
+     * @param mixed $valor Valor que se debe buscar en la columna.
+     * @return array El primer registro encontrado.
+     */
+    public static function buscarPorColumna($columna, $valor) {
+        $instruccionDeConsultaBD = "SELECT * FROM " . static::$nombreTablaEnBD . " WHERE {$columna} = '{$valor}'";
+        $resultadoConsultaBD = self::obtenerRegistrosConConsulta($instruccionDeConsultaBD);
+        return array_shift( $resultadoConsultaBD ) ;
+    }
+
+    /**
      * Filtra los atributos del objeto para su uso en consultas a la base de datos.
      *
      * @return array Atributos filtrados.
@@ -217,6 +230,16 @@ class ActiveRecord
     public static function obtenerErrores()
     {
         return static::$errores;
+    }
+
+    /**
+     * Establece un error personalizado en la clase.
+     *
+     * @param string $mensaje Mensaje descriptivo del error.
+     * @return void
+     */
+    public static function establecerError($mensaje) {
+        static::$errores[] = $mensaje;
     }
 
     /**

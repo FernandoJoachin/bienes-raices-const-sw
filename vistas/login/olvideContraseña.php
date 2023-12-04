@@ -4,7 +4,7 @@
   <form class="formulario" method="POST">
     <fieldset>
       <legend>¡Restablécela!</legend>
-      <label>Ingresa tu correo para enviarte las instrucciones<p/>
+      <label>Ingresa tu correo para enviarte las instrucciones</p>
       <label for="email">E-mail</label>
       <input id="email" type="email" name="email" placeholder="Tu Email">
     </fieldset>

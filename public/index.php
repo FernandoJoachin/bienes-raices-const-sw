@@ -28,10 +28,10 @@ $router->get("/admin-inicio", [CtrlPanelAdministracion::class, "vistaPanelAdmini
 $router->get("/iniciar-sesion",[CtrlInicioSesion::class, "vistaIniciarSesion"]);
 $router->get("/cerrar-sesion",[CtrlInicioSesion::class, "cerrarSesion"]);
 $router->get("/restablecer-contraseña",[CtrlInicioSesion::class, "vistaRestablecerContraseña"]);
-$router->get("/olvide-contraseña",[CtrlInicioSesion::class, "vistaOlvideContraseña"]);
+$router->get("/recuperar-contraseña",[CtrlInicioSesion::class, "vistaRecuperarContraseña"]);
 $router->post("/iniciar-sesion",[CtrlInicioSesion::class, "iniciarSesion"]);
 $router->post("/restablecer-contraseña",[CtrlInicioSesion::class, "restablecerContraseña"]);
-$router->post("/olvide-contraseña",[CtrlInicioSesion::class, "olvideContraseña"]);
+$router->post("/recuperar-contraseña",[CtrlInicioSesion::class, "recuperarContraseña"]);
 
 $router->get("/admin/propiedades", [CtrlPropiedades::class, "vistaTablaPropiedades"]);
 $router->get("/admin/propiedades/crear", [CtrlPropiedades::class, "vistaCrearPropiedad"]);
