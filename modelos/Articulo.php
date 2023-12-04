@@ -11,7 +11,7 @@ class Articulo extends ActiveRecord
     /**
      * @var string Nombre de la tabla en la base de datos.
      */
-    protected static $nombreTablaEnBD = "blog";
+    protected static $nombreTablaEnBD = "articulos";
 
     /**
      * @var int|null Identificador único del artículo.

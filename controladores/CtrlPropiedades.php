@@ -5,9 +5,34 @@ use MVC\Router;
 use Modelo\Propiedad;
 use Modelo\Vendedor;
 use Intervention\Image\ImageManagerStatic as Image;
+use Utilidades\Paginacion;
 
 class CtrlPropiedades
 {
+    public static function vistaTablaPropiedades(Router $router){
+        estaAutenticado();
+
+        $pagina_actual = filter_var($_GET["page"] ?? "", FILTER_VALIDATE_INT);
+        if(!$pagina_actual || $pagina_actual < 1){
+            header("Location: /admin/propiedades?page=1");
+        }
+
+        $registros_por_pagina = 5;
+        $total_registros = Propiedad::total();
+        $paginacion = new Paginacion($pagina_actual,  $registros_por_pagina, $total_registros);
+
+        if($paginacion->total_paginas() < $pagina_actual){
+            header("Location: /admin/propiedades?page=1");
+            return;
+        }
+
+        $propiedades = Propiedad::paginar($registros_por_pagina, $paginacion->offset());
+        $router->render("propiedades/tablaPropiedades",[
+            "titulo" => "Tabla de Propiedades",
+            "propiedades" => $propiedades,
+            "paginacion" => $paginacion->paginacion()
+        ]);
+    }
     /**
      * Muestra la vista para crear una nueva propiedad.
      *
@@ -87,7 +112,12 @@ class CtrlPropiedades
                 mkdir($carpetaImg);
             }
             $img->save($carpetaImg . $nombreImg);
-            $propiedad->almacenarEnBD();
+            $resultado = $propiedad->almacenarEnBD();
+
+            if($resultado){
+                header("Location: /admin/propiedades?page=1&resultado=1");
+                exit;
+            }
         } else {
             $_SESSION["respuesta"] = [
                 "propiedad" => $propiedad,
@@ -95,7 +125,8 @@ class CtrlPropiedades
                 "errores" => $errores
             ];
 
-            header("Location: /propiedades/crear");
+            header("Location: /admin/propiedades/crear");
+            exit;
         }
     }
 
@@ -128,7 +159,11 @@ class CtrlPropiedades
                 $img->save(CARPETA_IMG . $nombreImg);
             }
 
-            $propiedad->almacenarEnBD();
+            $resultado = $propiedad->almacenarEnBD();
+            if($resultado){
+                header("Location: /admin/propiedades?page=1&resultado=2");
+                exit;
+            }
             
         } else {
             // Guardar datos en sesión para mostrar en el formulario
@@ -138,7 +173,8 @@ class CtrlPropiedades
                 "errores" => $errores
             ];
 
-            header("Location: /propiedades/actualizar?id=" . $idPropiedad);
+            header("Location: /admin/propiedades/actualizar?id=" . $idPropiedad);
+            exit;
         }
     }
 
@@ -153,10 +189,13 @@ class CtrlPropiedades
             $id = $_POST["id"];
             $id = filter_var($id, FILTER_VALIDATE_INT);
             if ($id) {
-                $tipo = $_POST["tipo"];
-                if (validarTipoContenido($tipo)) {
-                    $propiedad = Propiedad::encontrarRegistroPorId($id);
-                    $propiedad->borrarRegistroBD($tipo);
+                $propiedad = Propiedad::encontrarRegistroPorId($id);
+                $resultado = $propiedad->borrarRegistroBD();
+
+                if($resultado){
+                    $propiedad->borrarArchivoImagen();
+                    //Redireccionar al usuario;
+                    header("Location: /admin/propiedades?page=1&resultado=3");
                 }
             }
         }

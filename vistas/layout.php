@@ -31,13 +31,13 @@ if (!isset($esInicio)) {
           <img src="/build/img/logo.svg" alt="Logo">
         </a>
 
-        <div class="mobile-menu">
+        <div id="mobile-menu" class="mobile-menu">
           <img src="/build/img/barras.svg" alt="icono de menu responsive">
         </div>
 
         <div class="derecha">
-          <img class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="dark mode">
-          <div class="navegacion">
+          <img id="dark-mode-boton" class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="dark mode">
+          <div id="navegacion" class="navegacion">
             <a href="/nosotros">Nosotros</a>
             <a href="/propiedades">Propiedades</a>
             <a href="/blog">Blog</a>

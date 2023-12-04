@@ -82,9 +82,9 @@ class ActiveRecord
     public function almacenarEnBD()
     {
         if (!is_null($this->id)) {
-            $this->actualizarEnBD();
+            return $this->actualizarEnBD();
         } else {
-            $this->crearEnBD();
+            return $this->crearEnBD();
         }
     }
 
@@ -107,9 +107,7 @@ class ActiveRecord
         $instruccionDeConsultaBD .= " LIMIT 1";
         $resultado = self::$db->query($instruccionDeConsultaBD);
 
-        if($resultado){
-            header("Location: /admin?resultado=2");
-        }
+        return $resultado;
     }
 
     /**
@@ -128,9 +126,7 @@ class ActiveRecord
         " ({$clavesAtributosFiltrados}) VALUES ('{$valoresAtributosFiltrados}')";
         $resultadoConsultaBD = self::$db->query($instruccionDeConsultaBD);
 
-        if ($resultadoConsultaBD) {
-            header("Location: /admin?resultado=1");
-        }
+        return $resultadoConsultaBD;
     }
 
     /**
@@ -139,7 +135,7 @@ class ActiveRecord
      * @param string $tipo Tipo de registro a borrar (opcional).
      * @return void
      */
-    public function borrarRegistroBD(String $tipo = "")
+    public function borrarRegistroBD()
     {
         $instruccionDeConsultaBD = "DELETE FROM " . static::$nombreTablaEnBD .
         " WHERE id="  . self::$db->escape_string($this->id) .
@@ -147,12 +143,38 @@ class ActiveRecord
 
         $resultado = self::$db->query($instruccionDeConsultaBD);
 
-        if ($resultado) {
-            if ($tipo === "propiedad") {
-                $this->borrarArchivoImagen();
-            }
-            header("Location: /admin?resultado=3");
+        return $resultado;
+    }
+
+    // Obtener el total de registros
+    public static function total($columna = "", $valor = ""){
+        $query = "SELECT COUNT(*) FROM " . static::$nombreTablaEnBD;
+        if($columna){
+            $query .= " WHERE {$columna} = {$valor}";
         }
+        $resultado = self::$db->query($query);
+        $total = $resultado->fetch_array();
+        return array_shift($total);
+    }
+
+    public static function paginar($por_pagina, $offset){
+        $query = "SELECT * FROM " . static::$nombreTablaEnBD . " ORDER BY id DESC LIMIT {$por_pagina} OFFSET {$offset}" ;
+        $resultado = self::obtenerRegistrosConConsulta($query);
+        return $resultado;
+    }
+    
+
+    /**
+     * Busca un registro en la base de datos por el valor de una columna específica.
+     *
+     * @param string $columna Nombre de la columna por la cual realizar la búsqueda.
+     * @param mixed $valor Valor que se debe buscar en la columna.
+     * @return array El primer registro encontrado.
+     */
+    public static function buscarPorColumna($columna, $valor) {
+        $instruccionDeConsultaBD = "SELECT * FROM " . static::$nombreTablaEnBD . " WHERE {$columna} = '{$valor}'";
+        $resultadoConsultaBD = self::obtenerRegistrosConConsulta($instruccionDeConsultaBD);
+        return array_shift( $resultadoConsultaBD ) ;
     }
 
     /**
@@ -221,6 +243,16 @@ class ActiveRecord
     public static function obtenerErrores()
     {
         return static::$errores;
+    }
+
+    /**
+     * Establece un error personalizado en la clase.
+     *
+     * @param string $mensaje Mensaje descriptivo del error.
+     * @return void
+     */
+    public static function establecerError($mensaje) {
+        static::$errores[] = $mensaje;
     }
 
     /**

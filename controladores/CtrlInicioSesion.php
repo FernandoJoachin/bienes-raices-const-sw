@@ -37,6 +37,33 @@ class CtrlInicioSesion
     {
         $router->render("login/restablecerContraseña");
     }
+  
+    /**
+     * Muestra la vista de olvidé mi contraseña.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     * @return void
+     */
+    public static function vistaRecuperarContraseña(Router $router)
+    {
+        $errores = [];
+
+        $mensajeResultado = "";
+        $enviado = "false";
+
+        if(isset($_SESSION["respuesta"])){
+            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
+            $enviado = $_SESSION["respuesta"]["enviado"];
+            $errores = $_SESSION["respuesta"]["errores"];
+            unset($_SESSION["respuesta"]);
+        }
+
+        $router->render("login/olvideContraseña", [
+            "mensajeResultado" => $mensajeResultado,
+            "enviado" => $enviado,
+            "errores" => $errores
+        ]);
+    }
 
     /**
      * Inicia la sesión del usuario.
@@ -98,6 +125,7 @@ class CtrlInicioSesion
      * @return void
      */
     public static function vistaOlvideContraseña(Router $router)
+    public static function recuperarContraseña()
     {
 
         $mensajeResultado = "";
@@ -116,6 +144,33 @@ class CtrlInicioSesion
             "enviado" => $enviado,
             "correcto" => $correcto
         ]);
+        $usuario = new Usuario($_POST);
+        $usuario->validarEmail();
+        $errores = Usuario::obtenerErrores();
+
+        if (empty($errores)) {
+            $usuario = Usuario::buscarPorColumna('email', $usuario->email);
+
+            if($usuario && $usuario->estaConfirmado) {
+                $usuario->crearToken();
+
+                $usuario->almacenarEnBD();
+                
+                $datosUsuario = [
+                    "email" => $usuario->email,
+                    "nombre" => $usuario->nombre,
+                    "token" => $usuario->token
+                ];
+                
+                $email = new Email( $datosUsuario );
+                $email->enviarInstrucciones();
+
+            } 
+
+            $_SESSION["respuesta"] = [
+                "errores" => $errores
+            ];
+        }
     }
 
     /**

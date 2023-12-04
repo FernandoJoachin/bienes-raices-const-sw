@@ -1,4 +1,5 @@
 @use "base/variables" as vr;
+@use 'base/mixins' as mxn;
 .dark-mode{
     background-color: darken(vr.$grisOscuro, 10);
 
@@ -36,6 +37,30 @@
             background-color: vr.$grisOscuro;
             border: 1px solid vr.$grisOscuro;
             color: vr.$blanco;
+        }
+    }
+    .dashboard {
+        &__header {
+            background-color: vr.$grisOscuro;
+        }
+        &__sidebar {
+            background-color: vr.$grisOscuro;
+    
+            @include mxn.tablet {
+                background-color: lighten(vr.$grisOscuro, 10);
+            }
+        }
+    }
+
+    .table{
+        &__thead{
+            background-color: #4d4d4d;
+        }
+
+        &__tr{
+            &:nth-of-type(even){
+                background-color: #666;
+            }
         }
     }
 }

@@ -14,14 +14,10 @@ class CtrlPanelAdministracion
      */
     public static function vistaPanelAdministracion(Router $router)
     {
-        estaAutenticado();
-        $propiedades = Propiedad::obtenerTodosRegistrosEnBD();
-        $vendedores = Vendedor::obtenerTodosRegistrosEnBD();
-        $resultado = $_GET["resultado"] ?? null;
+        //estaAutenticado();
+        
         $router->render("admin/panelAdministracion", [
-            "propiedades" => $propiedades,
-            "resultado" => $resultado,
-            "vendedores" => $vendedores
+
         ]);
     }
 }
