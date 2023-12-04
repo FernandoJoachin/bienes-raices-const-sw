@@ -4,9 +4,34 @@ namespace Controlador;
 use MVC\Router;
 use Modelo\Articulo;
 use Intervention\Image\ImageManagerStatic as Image;
+use Utilidades\Paginacion;
 
 class CtrlArticulo
 {
+    public static function vistaTablaArticulos(Router $router){
+        estaAutenticado();
+
+        $pagina_actual = filter_var($_GET["page"] ?? "", FILTER_VALIDATE_INT);
+        if(!$pagina_actual || $pagina_actual < 1){
+            header("Location: /admin/articulos?page=1");
+        }
+
+        $registros_por_pagina = 5;
+        $total_registros = Articulo::total();
+        $paginacion = new Paginacion($pagina_actual,  $registros_por_pagina, $total_registros);
+
+        if($paginacion->total_paginas() < $pagina_actual){
+            header("Location: /admin/articulos?page=1");
+            return;
+        }
+
+        $articulos = Articulo::paginar($registros_por_pagina, $paginacion->offset());
+        $router->render("articulos/tablaArticulos",[
+            "titulo" => "Tabla de Articulos",
+            "articulos" => $articulos,
+            "paginacion" => $paginacion->paginacion()
+        ]);
+    }
     /**
      * Muestra la vista para crear un nuevo artículo.
      *
@@ -82,14 +107,18 @@ class CtrlArticulo
             }
 
             $imagen->save(CARPETA_IMG . $nombreImagen);
-            $articulo->almacenarEnBD();
+            $resultado = $articulo->almacenarEnBD();
+            if($resultado){
+                header("Location: /admin/articulos?page=1&resultado=1");
+                exit;
+            }
         } else {
             $_SESSION["respuesta"] = [
                 "articulo" => $articulo,
                 "errores" => $errores
             ];
             
-            header("Location: /articulos/crear");
+            header("Location: /admin/articulos/crear");
         }
     }
 
@@ -116,13 +145,17 @@ class CtrlArticulo
             if ($_FILES['articulo']['tmp_name']["imagen"]) {
                $imagen->save(CARPETA_IMG . $nombreImagen);
             }
-            $articulo->almacenarEnBD();
+            $resultado = $articulo->almacenarEnBD();
+            if($resultado){
+                header("Location: /admin/articulos?page=1&resultado=2");
+                exit;
+            }
         } else {
             $_SESSION["respuesta"] = [
                 "articulo" => $articulo,
                 "errores" => $errores
             ];
-            header("Location: /articulos/actualizar?id=". $idArticulo);
+            header("Location: /admin/articulos/actualizar?id=". $idArticulo);
         }
     }
 
@@ -139,11 +172,12 @@ class CtrlArticulo
             $idArticulo = filter_var($idArticulo, FILTER_VALIDATE_INT);
     
             if ($idArticulo) {
-                $tipo = $_POST['tipo'];
-    
-                if (validarTipoContenido($tipo)) {
-                    $article = Articulo::encontrarRegistroPorId($idArticulo);
-                    $article->borrarRegistroBD();
+                $articulo = Articulo::encontrarRegistroPorId($idArticulo);
+                $resultado = $articulo->borrarRegistroBD();
+                if($resultado){
+                    $articulo->borrarArchivoImagen();
+                    //Redireccionar al usuario;
+                    header("Location: /admin/articulos?page=1&resultado=3");
                 }
             }
         }

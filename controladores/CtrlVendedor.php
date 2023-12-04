@@ -3,9 +3,36 @@ namespace Controlador;
 
 use MVC\Router;
 use Modelo\Vendedor;
+use Utilidades\Paginacion;
 
 class CtrlVendedor
 {
+
+    public static function vistaTablaVendedores(Router $router){
+        estaAutenticado();
+
+        $pagina_actual = filter_var($_GET["page"] ?? "", FILTER_VALIDATE_INT);
+        if(!$pagina_actual || $pagina_actual < 1){
+            header("Location: /admin/vendedores?page=1");
+        }
+
+        $registros_por_pagina = 5;
+        $total_registros = Vendedor::total();
+        $paginacion = new Paginacion($pagina_actual,  $registros_por_pagina, $total_registros);
+
+        if($paginacion->total_paginas() < $pagina_actual){
+            header("Location: /admin/vendedores?page=1");
+            return;
+        }
+
+        $vendedores = Vendedor::paginar($registros_por_pagina, $paginacion->offset());
+        $router->render("vendedores/tablaVendedores",[
+            "titulo" => "Tabla de Vendedores",
+            "vendedores" => $vendedores,
+            "paginacion" => $paginacion->paginacion()
+        ]);
+    }
+
     /**
      * Muestra la vista para crear un nuevo vendedor.
      *
@@ -69,13 +96,18 @@ class CtrlVendedor
         ];
 
         if(empty($errores)) {
-            $vendedor->almacenarEnBD();
+            $resultado = $vendedor->almacenarEnBD();
+            if($resultado){
+                header("Location: /admin/vendedores?page=1&resultado=1");
+                exit;
+            }
         } else {
             $_SESSION["respuesta"] = [
                 "vendedor" => $vendedor,
                 "errores" => $errores
             ];
-            header("Location: /vendedores/crear");
+            header("Location: /admin/vendedores/crear");
+            exit;
         }
     }
 
@@ -93,13 +125,18 @@ class CtrlVendedor
         $errores = $vendedor->validarErrores();  
 
         if(empty($errores)){
-            $vendedor->almacenarEnBD();
+            $resultado = $vendedor->almacenarEnBD();
+            if($resultado){
+                header("Location: /admin/vendedores?page=1&resultado=2");
+                exit;
+            }
         } else {
             $_SESSION["respuesta"] = [
                 "vendedor" => $vendedor,
                 "errores" => $errores
             ];
-            header("Location: /vendedores/actualizar?id=". $idVendedor);
+            header("Location: /admin/vendedores/actualizar?id=". $idVendedor);
+            exit;
         }
     }
 
@@ -113,11 +150,11 @@ class CtrlVendedor
         $id = $_POST["id"];
         $id = filter_var($id, FILTER_VALIDATE_INT);
         if($id){
-            $tipo = $_POST["tipo"];
-            if(validarTipoContenido($tipo)){
-                $propiedad = Vendedor::encontrarRegistroPorId($id);
-                $propiedad->borrarRegistroBD($tipo);
-            }   
+            $propiedad = Vendedor::encontrarRegistroPorId($id);
+            $resultado = $propiedad->borrarRegistroBD();  
+            if($resultado){
+                header("Location: /admin/vendedores?page=1&resultado=3");
+            }
         } 
     }
 }

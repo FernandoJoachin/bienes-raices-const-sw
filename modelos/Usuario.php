@@ -163,7 +163,7 @@ class Usuario extends ActiveRecord
     {
         $_SESSION["usuario"] = $this->email;
         $_SESSION["login"] = true;
-        header("Location: /admin");
+        header("Location: /admin-inicio");
         exit;
     }
 

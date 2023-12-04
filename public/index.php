@@ -23,7 +23,7 @@ $router->get("/entrada",[CtrlPaginas::class, "vistaEntrada"]);
 $router->get("/contacto",[CtrlPaginas::class, "vistaContacto"]);
 $router->post("/contacto",[CtrlPaginas::class, "enviarCorreoContacto"]);
 
-$router->get("/admin", [CtrlPanelAdministracion::class, "vistaPanelAdministracion"]);
+$router->get("/admin-inicio", [CtrlPanelAdministracion::class, "vistaPanelAdministracion"]);
 
 $router->get("/iniciar-sesion",[CtrlInicioSesion::class, "vistaIniciarSesion"]);
 $router->get("/cerrar-sesion",[CtrlInicioSesion::class, "cerrarSesion"]);
@@ -33,25 +33,29 @@ $router->post("/iniciar-sesion",[CtrlInicioSesion::class, "iniciarSesion"]);
 $router->post("/restablecer-contraseña",[CtrlInicioSesion::class, "restablecerContraseña"]);
 $router->post("/recuperar-contraseña",[CtrlInicioSesion::class, "recuperarContraseña"]);
 
-$router->get("/propiedades/crear", [CtrlPropiedades::class, "vistaCrearPropiedad"]);
-$router->post("/propiedades/crear", [CtrlPropiedades::class, "crearPropiedad"]);
-$router->get("/propiedades/actualizar", [CtrlPropiedades::class, "vistaActualizarPropiedad"]);
-$router->post("/propiedades/actualizar", [CtrlPropiedades::class, "actualizarPropiedad"]);
-$router->post("/propiedades/eliminar", [CtrlPropiedades::class, "eliminarPropiedad"]);
+$router->get("/admin/propiedades", [CtrlPropiedades::class, "vistaTablaPropiedades"]);
+$router->get("/admin/propiedades/crear", [CtrlPropiedades::class, "vistaCrearPropiedad"]);
+$router->post("/admin/propiedades/crear", [CtrlPropiedades::class, "crearPropiedad"]);
+$router->get("/admin/propiedades/actualizar", [CtrlPropiedades::class, "vistaActualizarPropiedad"]);
+$router->post("/admin/propiedades/actualizar", [CtrlPropiedades::class, "actualizarPropiedad"]);
+$router->post("/admin/propiedades/eliminar", [CtrlPropiedades::class, "eliminarPropiedad"]);
 
-$router->get("/vendedores/crear", [CtrlVendedor::class, "vistaCrearVendedor"]);
-$router->get("/vendedores/actualizar", [CtrlVendedor::class, "vistaActualizarVendedor"]);
-$router->post("/vendedores/crear", [CtrlVendedor::class, "crearVendedor"]);
-$router->post("/vendedores/actualizar", [CtrlVendedor::class, "actualizarVendedor"]);
-$router->post("/vendedores/eliminar", [CtrlVendedor::class, "eliminarVendedor"]);
+$router->get("/admin/vendedores", [CtrlVendedor::class, "vistaTablaVendedores"]);
+$router->get("/admin/vendedores/crear", [CtrlVendedor::class, "vistaCrearVendedor"]);
+$router->get("/admin/vendedores/actualizar", [CtrlVendedor::class, "vistaActualizarVendedor"]);
+$router->post("/admin/vendedores/crear", [CtrlVendedor::class, "crearVendedor"]);
+$router->post("/admin/vendedores/actualizar", [CtrlVendedor::class, "actualizarVendedor"]);
+$router->post("/admin/vendedores/eliminar", [CtrlVendedor::class, "eliminarVendedor"]);
 
-$router->get("/articulos/crear",[CtrlArticulo::class, "vistaCrearArticulo"]);
-$router->get("/articulos/actualizar",[CtrlArticulo::class, "vistaActualizarArticulo"]);
-$router->post("/articulos/crear",[CtrlArticulo::class, "crearArticulo"]);
-$router->post("/articulos/actualizar",[CtrlArticulo::class, "actualizarArticulo"]);
-$router->post("/articulos/eliminar", [CtrlArticulo::class, "eliminarArticulo"]);
+$router->get("/admin/articulos", [CtrlArticulo::class, "vistaTablaArticulos"]);
+$router->get("/admin/articulos/crear",[CtrlArticulo::class, "vistaCrearArticulo"]);
+$router->get("/admin/articulos/actualizar",[CtrlArticulo::class, "vistaActualizarArticulo"]);
+$router->post("/admin/articulos/crear",[CtrlArticulo::class, "crearArticulo"]);
+$router->post("/admin/articulos/actualizar",[CtrlArticulo::class, "actualizarArticulo"]);
+$router->post("/admin/articulos/eliminar", [CtrlArticulo::class, "eliminarArticulo"]);
 
-$router->get("/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
-$router->post("/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);
+$router->get("/admin/usuarios",[CtrlUsuario::class, "vistaTablaUsuarios"]);
+$router->get("/admin/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
+$router->post("/admin/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);
 
 $router->comprobarRutas();

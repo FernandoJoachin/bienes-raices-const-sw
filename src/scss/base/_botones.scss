@@ -13,6 +13,10 @@
     @include mxn.boton(vr.$amarillo,block);
 }
 
+.boton-azul-block{
+    @include mxn.boton(lighten(vr.$azul-oscuro, 10%),block);
+}
+
 .boton-verde-block{
     @include mxn.boton(vr.$verde,block);
 }

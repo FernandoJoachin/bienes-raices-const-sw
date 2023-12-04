@@ -1,4 +1,3 @@
 <main class="contenedor seccion">
-  <h1>Administrador de bienes raices</h1>
-
+  <h1>Bievenido al panel de administrador de bienes raices</h1>
 </main>

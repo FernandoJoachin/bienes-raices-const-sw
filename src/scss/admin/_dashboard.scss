@@ -107,7 +107,6 @@
 
         @include m.tablet {
             background-color: lighten(v.$gris, 5);
-
             width: 12rem;
         }
     }
@@ -152,8 +151,18 @@
     &__contenido {
         padding: 1rem 1rem 3rem 1rem;
         width: 100%;
+
         @include m.tablet {
+            overflow-y: scroll;
             padding: 1rem 5rem 3rem 5rem;
+        }
+    }
+
+    &__contenedor-boton{
+        @include m.tablet{
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 4rem;
         }
     }
 }
