@@ -8,7 +8,7 @@ class Usuario extends ActiveRecord
     /**
      * @var array Lista de atributos de la tabla en la base de datos.
      */
-    protected static $atributosTablaEnBD = ["id", "email", "password"];
+    protected static $atributosTablaEnBD = ["id", "email", "password", "esAdmin", "token"];
 
     /**
      * @var string Nombre de la tabla en la base de datos.
@@ -31,9 +31,9 @@ class Usuario extends ActiveRecord
     public $password;
 
     /**
-     * @var bool Indica el estado de confirmación del usuario: 1 si está confirmado, 0 si no está confirmado.
+     * @var bool Indica el estado de confirmación del usuario: 1 si es un admin.
      */
-    public $estaConfirmado;
+    public $esAdmin;
 
     /**
      * @var string Token de confirmación.
@@ -50,7 +50,7 @@ class Usuario extends ActiveRecord
         $this->id = $args["id"] ?? null;
         $this->email = $args["email"] ?? "";
         $this->password = $args["password"] ?? "";
-        $this->estaConfirmado = $args["estaConfirmado"] ?? false;
+        $this->esAdmin = 0;
         $this->token = $args["token"] ?? "";
     }
 
@@ -178,6 +178,7 @@ class Usuario extends ActiveRecord
     {
         $_SESSION["usuario"] = $this->email;
         $_SESSION["login"] = true;
+        $_SESSION["esAdmin"] = $this->esAdmin;
         header("Location: /admin-inicio");
         exit;
     }

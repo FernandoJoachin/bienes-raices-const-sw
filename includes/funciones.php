@@ -74,3 +74,26 @@ function validarORedireccionar(String $url)
 
     return $id;
 }
+
+function existeUsuario($usuario)
+{
+    if(!isset($usuario)) {
+        header("Location: /iniciar-sesion");
+        exit;
+    }
+}
+
+function existeToken($token)
+{
+    if(!isset($token)) {
+        header("Location: /iniciar-sesion");
+        exit;
+    }
+}
+
+function esAdmin(){
+    if($_SESSION["esAdmin"] == 0){
+        header("Location: /admin-inicio");
+        exit;
+    }
+}

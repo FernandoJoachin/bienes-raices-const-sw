@@ -16,8 +16,8 @@
                     <th scope="col" class="table_th">ID</th>
                     <th scope="col" class="table_th">Titulo</th>
                     <th scope="col" class="table_th">Autor</th>
-                    <th scope="col" class="table_th">Imagen</th>
                     <th scope="col" class="table_th">fecha</th>
+                    <th scope="col" class="table_th">Imagen</th>
                     <th scope="col" class="table_th">Acciones</th>
                 </tr>
             </thead>

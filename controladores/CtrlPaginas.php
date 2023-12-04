@@ -1,6 +1,7 @@
 <?php
 namespace Controlador;
 
+use Modelo\Articulo;
 use Utilidades\Email;
 use Modelo\Propiedad;
 use MVC\Router;
@@ -16,8 +17,10 @@ class CtrlPaginas
     public static function index(Router $router)
     {
         $propiedades = Propiedad::obtenerRegistrosConLimite(3);
+        $articulos = Articulo::obtenerRegistrosConLimite(2);
         $router->render("paginas/index", [
             "propiedades" => $propiedades,
+            "articulos" => $articulos,
             "esInicio" => true
         ]);
     }
@@ -70,7 +73,10 @@ class CtrlPaginas
      */
     public static function vistaBlogs(Router $router)
     {
-        $router->render("paginas/blogs");
+        $articulos = Articulo::obtenerTodosRegistrosEnBD();
+        $router->render("paginas/blogs", [
+            "articulos" => $articulos
+        ]);
     }
 
     /**
@@ -81,7 +87,11 @@ class CtrlPaginas
      */
     public static function vistaEntrada(Router $router)
     {
-        $router->render("paginas/entrada");
+        $id = validarORedireccionar("/blog");
+        $articulo = Articulo::encontrarRegistroPorId($id);
+        $router->render("paginas/entrada", [
+            "articulo" => $articulo
+        ]);
     }
 
     /**

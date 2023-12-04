@@ -8,6 +8,12 @@ use Utilidades\Paginacion;
 
 class CtrlArticulo
 {
+    /**
+     * Muestra la vista de la tabla de artículos paginada.
+     *
+     * @param Router $router El objeto Router para renderizar la vista.
+     * @return void
+     */
     public static function vistaTablaArticulos(Router $router){
         estaAutenticado();
 
