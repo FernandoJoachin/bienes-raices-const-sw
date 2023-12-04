@@ -8,7 +8,7 @@ class Usuario extends ActiveRecord
     /**
      * @var array Lista de atributos de la tabla en la base de datos.
      */
-    protected static $atributosTablaEnBD = ["id", "email", "password"];
+    protected static $atributosTablaEnBD = ["id", "email", "password", "esAdmin", "token"];
 
     /**
      * @var string Nombre de la tabla en la base de datos.
@@ -31,9 +31,9 @@ class Usuario extends ActiveRecord
     public $password;
 
     /**
-     * @var bool Indica el estado de confirmación del usuario: 1 si está confirmado, 0 si no está confirmado.
+     * @var bool Indica el estado de confirmación del usuario: 1 si es un admin.
      */
-    public $estaConfirmado;
+    public $esAdmin;
 
     /**
      * @var string Token de confirmación.
@@ -50,7 +50,7 @@ class Usuario extends ActiveRecord
         $this->id = $args["id"] ?? null;
         $this->email = $args["email"] ?? "";
         $this->password = $args["password"] ?? "";
-        $this->estaConfirmado = $args["estaConfirmado"] ?? false;
+        $this->esAdmin = 0;
         $this->token = $args["token"] ?? "";
     }
 
@@ -123,6 +123,21 @@ class Usuario extends ActiveRecord
     }
 
     /**
+     * Valida el correo ingresado por el usuario y devuelve los errores.
+     *
+     * @return array Errores de validación.
+     */
+    public function validarCorreo() {
+        if(!$this->email) {
+            self::$errores['error'][] = 'El Email es Obligatorio';
+        }
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$errores['error'][] = 'Email no válido';
+        }
+        return self::$errores;
+    }
+
+    /**
      * Comprueba si el usuario existe en la base de datos.
      *
      * @return mixed Resultado de la consulta o falso si el usuario no existe.
@@ -163,6 +178,7 @@ class Usuario extends ActiveRecord
     {
         $_SESSION["usuario"] = $this->email;
         $_SESSION["login"] = true;
+        $_SESSION["esAdmin"] = $this->esAdmin;
         header("Location: /admin-inicio");
         exit;
     }

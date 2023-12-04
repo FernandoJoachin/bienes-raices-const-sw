@@ -27,6 +27,32 @@ class CtrlInicioSesion
         ]);
     }
 
+        /**
+     * Muestra la vista de olvidé mi contraseña.
+     *
+     * @param Router $router Objeto Router para renderizar la vista.
+     * @return void
+     */
+    public static function vistaOlvideContraseña(Router $router)
+    {
+        $mensajeResultado = "";
+        $enviado = false;
+        $correcto = false;
+
+        if(isset($_SESSION["respuesta"])){
+            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
+            $enviado = $_SESSION["respuesta"]["enviado"];
+            $correcto = $_SESSION["respuesta"]["correcto"];
+            unset($_SESSION["respuesta"]);
+        }
+
+        $router->render("login/olvideContraseña",[
+            "mensajeResultado" => $mensajeResultado,
+            "enviado" => $enviado,
+            "correcto" => $correcto
+        ]);
+    }
+
     /**
      * Muestra la vista de restablecer mi contraseña.
      *
@@ -35,32 +61,18 @@ class CtrlInicioSesion
      */
     public static function vistaRestablecerContraseña(Router $router)
     {
-        $router->render("login/restablecerContraseña");
-    }
-  
-    /**
-     * Muestra la vista de olvidé mi contraseña.
-     *
-     * @param Router $router Objeto Router para renderizar la vista.
-     * @return void
-     */
-    public static function vistaRecuperarContraseña(Router $router)
-    {
+        $token = $_GET["token"] ?? null;
+        existeToken($token);
+        $usuario = Usuario::buscarPorColumna('token', $token);
+        existeUsuario($usuario);
+
         $errores = [];
-
-        $mensajeResultado = "";
-        $enviado = "false";
-
         if(isset($_SESSION["respuesta"])){
-            $mensajeResultado = $_SESSION["respuesta"]["mensajeResultado"];
-            $enviado = $_SESSION["respuesta"]["enviado"];
             $errores = $_SESSION["respuesta"]["errores"];
             unset($_SESSION["respuesta"]);
         }
 
-        $router->render("login/olvideContraseña", [
-            "mensajeResultado" => $mensajeResultado,
-            "enviado" => $enviado,
+        $router->render("login/restablecerContraseña",[
             "errores" => $errores
         ]);
     }
@@ -82,7 +94,8 @@ class CtrlInicioSesion
                 $contraseñaCorrecta = $usuario->comprobarContraseña($existeUsuarioBD);
 
                 if ($contraseñaCorrecta) {
-                    $usuario->autenticarUsuario();
+                    $usuarioBD = Usuario::buscarPorColumna('email', $_POST["email"]);
+                    $usuarioBD->autenticarUsuario();
                 } else {
                     $errores = Usuario::obtenerErrores();
                 }
@@ -95,6 +108,7 @@ class CtrlInicioSesion
             "errores" => $errores
         ];
         header("Location: /iniciar-sesion");
+        exit;
     }
 
     /**
@@ -115,7 +129,28 @@ class CtrlInicioSesion
      */
     public static function restablecerContraseña()
     {
-        echo "restableciendo contraseña...";
+
+        $usuario = Usuario::buscarPorColumna('token', $_GET["token"]);
+        $usuario->sincronizarCambiosConObjeto($_POST);
+
+        $usuario->validarPassword();
+        $errores = Usuario::obtenerErrores();
+        if(empty($errores)){
+            $usuario->hashearContraseña();
+            $usuario->token = null;
+            $resultado = $usuario->almacenarEnBD();
+            if($resultado){
+                header("Location: /iniciar-sesion");
+                exit;
+            }
+        }else{
+            $_SESSION["respuesta"] = [
+                "errores" => $errores
+            ];
+            header("Location: /restablecer-contraseña?token=$usuario->token");
+            exit;
+        }
+
     }
 
     /**
@@ -123,34 +158,33 @@ class CtrlInicioSesion
      *
      * @return void
      */
-    public static function recuperarContraseña()
-    {
-        $usuario = new Usuario($_POST);
-        $usuario->validarEmail();
-        $errores = Usuario::obtenerErrores();
 
-        if (empty($errores)) {
+     public static function olvideContraseña() {
+        $errores = [];
+        $usuario = new Usuario($_POST["email"]);
+        $errores = $usuario->validarCorreo();
+
+        if(empty($errores)) {
+            // Buscar el usuario
             $usuario = Usuario::buscarPorColumna('email', $usuario->email);
 
-            if($usuario && $usuario->estaConfirmado) {
+            if($usuario) {
                 $usuario->crearToken();
-
                 $usuario->almacenarEnBD();
-                
-                $datosUsuario = [
-                    "email" => $usuario->email,
-                    "nombre" => $usuario->nombre,
-                    "token" => $usuario->token
-                ];
-                
-                $email = new Email( $datosUsuario );
-                $email->enviarInstrucciones();
 
-            } 
-
-            $_SESSION["respuesta"] = [
-                "errores" => $errores
-            ];
+                // Enviar el email
+                $email = new Email( "email" );
+                $email->enviarCorreoReestablecerContraseña($usuario->token);
+                header("Location: /olvide-contraseña");
+                exit;
+            }
         }
+        $_SESSION["respuesta"] = [
+            "mensajeResultado" => "Ingrese un correo válido",
+            "correcto" => false,
+            "enviado" => false
+        ];
+        header("Location: /olvide-contraseña");
+
     }
 }

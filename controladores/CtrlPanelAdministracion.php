@@ -14,7 +14,7 @@ class CtrlPanelAdministracion
      */
     public static function vistaPanelAdministracion(Router $router)
     {
-        //estaAutenticado();
+        estaAutenticado();
         
         $router->render("admin/panelAdministracion", [
 

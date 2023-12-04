@@ -7,9 +7,15 @@ use Utilidades\Paginacion;
 
 class CtrlUsuario
 {
-
+    /**
+     * Muestra la vista de la tabla de usuarios paginada.
+     *
+     * @param Router $router El objeto Router para renderizar la vista.
+     * @return void
+     */
     public static function vistaTablaUsuarios(Router $router){
         estaAutenticado();
+        esAdmin();
 
         $pagina_actual = filter_var($_GET["page"] ?? "", FILTER_VALIDATE_INT);
         if(!$pagina_actual || $pagina_actual < 1){
@@ -42,6 +48,7 @@ class CtrlUsuario
     public static function vistaCrearUsuario(Router $router)
     {
         estaAutenticado();
+        esAdmin();
         $usuario = new Usuario();
 
         $errores = [];
@@ -78,7 +85,7 @@ class CtrlUsuario
             $usuario->hashearContraseña();
             $resultado = $usuario->almacenarEnBD();
             if($resultado){
-                header("Location: /admin/usuarios?page=1&resultado=3");
+                header("Location: /admin/usuarios?page=1&resultado=1");
             }
         } else {
             $_SESSION["respuesta"] = [
@@ -91,5 +98,22 @@ class CtrlUsuario
         
     }
 
+    /**
+     * Elimina un usuario existente.
+     *
+     * @return void
+    */
+    public static function eliminarUsuario()
+    {
+        $id = $_POST["id"];
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        if($id){
+            $usuario = Usuario::encontrarRegistroPorId($id);
+            $resultado = $usuario->borrarRegistroBD();  
+            if($resultado){
+                header("Location: /admin/usuarios?page=1&resultado=3");
+            }
+        } 
+    }
     
 }

@@ -9,6 +9,12 @@ use Utilidades\Paginacion;
 
 class CtrlPropiedades
 {
+    /**
+     * Muestra la vista de la tabla de propiedades paginada.
+     *
+     * @param Router $router El objeto Router para renderizar la vista.
+     * @return void
+     */
     public static function vistaTablaPropiedades(Router $router){
         estaAutenticado();
 
@@ -107,11 +113,10 @@ class CtrlPropiedades
         $errores = $propiedad->validarErrores();
     
         if (empty($errores)) {
-            $carpetaImg = "../../imagenes/";
-            if (!is_dir($carpetaImg)) {
-                mkdir($carpetaImg);
+            if (!is_dir(CARPETA_IMG)) {
+                mkdir(CARPETA_IMG);
             }
-            $img->save($carpetaImg . $nombreImg);
+            $img->save(CARPETA_IMG . $nombreImg);
             $resultado = $propiedad->almacenarEnBD();
 
             if($resultado){

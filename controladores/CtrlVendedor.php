@@ -8,6 +8,12 @@ use Utilidades\Paginacion;
 class CtrlVendedor
 {
 
+    /**
+     * Muestra la vista de la tabla de vendedores paginada.
+     *
+     * @param Router $router El objeto Router para renderizar la vista.
+     * @return void
+     */
     public static function vistaTablaVendedores(Router $router){
         estaAutenticado();
 

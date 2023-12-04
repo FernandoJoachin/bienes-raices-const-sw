@@ -38,36 +38,6 @@ class Email {
         
         if( $mail->send()){
             $enviado = true;
-            $mensajeResultado = "El mensaje se envio correctamente";
-        }else{
-            $enviado = false;
-            $mensajeResultado = "Sucedió un error, el mensaje no se pudo enviar";
-        }
-
-        $_SESSION["respuesta"] = [
-            "mensajeResultado" => $mensajeResultado,
-            "enviado" => $enviado
-        ];
-
-        return $enviado;
-    }
-
-    public function enviarInstrucciones() {
-
-        include __DIR__ . "/../includes/template/credenciales_correo.php";
-
-        $contenidoCorreo = '<html>';
-        $contenidoCorreo .= "<p><strong>Hola " . $this->respuestasFormulario["nombre"] .  "</strong> Has solicitado restablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>";
-        $contenidoCorreo .= "<p>Presiona aquí: <a href='" . $_ENV['HOST'] . "/restablecer-contraseña?token=" . $this->respuestasFormulario["token"] . "'>Restablecer Contraseña</a>";        
-        $contenidoCorreo .= "<p>Si no solicitaste este cambio, puedes ignorar el mensaje</p>";
-        $contenidoCorreo .= '</html>';
-        $mail->setFrom('noreply@bienesraices.com');
-        $mail->addAddress($this->respuestasFormulario["email"], $this->respuestasFormulario["nombre"]);
-        $mail->Subject = 'Restablece tu contraseña';
-        $mail->Body = $contenidoCorreo;
-
-        if( $mail->send() ){
-            $enviado = true;
             $mensajeResultado = "El mensaje se envió correctamente";
         }else{
             $enviado = false;
@@ -81,4 +51,65 @@ class Email {
 
         return $enviado;
     }
+
+    public function enviarCorreoReestablecerContraseña($token) {
+
+        include __DIR__ . "/../includes/template/credenciales_correo.php";
+
+        $contenido = '<html>';
+        $contenido .= "<p>Has solicitado reestablecer tu password, sigue el siguiente enlace para hacerlo.</p>";
+        $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/restablecer-contraseña?token=" . $token . "'>Reestablecer Contraseña</a></p>";        
+        $contenido .= "<p>Si no solicitaste este cambio, puedes ignorar el mensaje</p>";
+        $contenido .= '</html>';
+        $mail->Body = $contenido;
+
+        $mail->Subject = "Recupera tu contraseña";
+        $mail->Body = $contenido;
+        
+        if( $mail->send()){
+            $enviado = true;
+            $mensajeResultado = "El mensaje se envió correctamente, revise su bandeja de entrada";
+        }else{
+            $enviado = false;
+            $mensajeResultado = "Sucedió un error, el mensaje no se pudo enviar";
+        }
+
+        $_SESSION["respuesta"] = [
+            "mensajeResultado" => $mensajeResultado,
+            "enviado" => $enviado,
+            "correcto" => true
+        ];
+
+        return $enviado;
+    }
+
+    // public function enviarInstrucciones() {
+
+    //     include __DIR__ . "/../includes/template/credenciales_correo.php";
+
+    //     $contenidoCorreo = '<html>';
+    //     $contenidoCorreo .= "<p><strong>Hola " . $this->respuestasFormulario["nombre"] .  "</strong> Has solicitado restablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>";
+    //     $contenidoCorreo .= "<p>Presiona aquí: <a href='" . $_ENV['HOST'] . "/restablecer-contraseña?token=" . $this->respuestasFormulario["token"] . "'>Restablecer Contraseña</a>";        
+    //     $contenidoCorreo .= "<p>Si no solicitaste este cambio, puedes ignorar el mensaje</p>";
+    //     $contenidoCorreo .= '</html>';
+    //     $mail->setFrom('noreply@bienesraices.com');
+    //     $mail->addAddress($this->respuestasFormulario["email"], $this->respuestasFormulario["nombre"]);
+    //     $mail->Subject = 'Restablece tu contraseña';
+    //     $mail->Body = $contenidoCorreo;
+
+    //     if( $mail->send() ){
+    //         $enviado = true;
+    //         $mensajeResultado = "El mensaje se envió correctamente";
+    //     }else{
+    //         $enviado = false;
+    //         $mensajeResultado = "Sucedió un error, el mensaje no se pudo enviar";
+    //     }
+
+    //     $_SESSION["respuesta"] = [
+    //         "mensajeResultado" => $mensajeResultado,
+    //         "enviado" => $enviado
+    //     ];
+
+    //     return $enviado;
+    // }
 }

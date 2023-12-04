@@ -31,7 +31,7 @@ CREATE TABLE `articulos` (
   `contenido` text COLLATE utf8mb4_unicode_ci,
   `imagen` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `articulos` (
 
 LOCK TABLES `articulos` WRITE;
 /*!40000 ALTER TABLE `articulos` DISABLE KEYS */;
-INSERT INTO `articulos` VALUES (1,'uhijnkm','2023-12-03','strxdycfbhijnmk,l','bhnklmldfgunjmknbgvcfxtcfyvbhnjmjnbhugvyuctycfvgbhnijm','ygiioiojohi','86eb87a71b3788699315035d0d82459f.jpg');
+INSERT INTO `articulos` VALUES (1,'Aitor Cardoné','2023-12-03','Compra tu primer departamento','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n          ','            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum necessitatibus alias minus perferendis unde, minima nemo laborum natus.\r\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum necessitatibus alias minus perferendis unde, minima nemo laborum natus.\r\n','f16b019482d32272aa8626b10343a959.jpg'),(2,'Carlos May','2023-12-03','Sé el más aesthetic de tus amigos','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum ','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum necessitatibus alias minus perferendis unde, minima nemo laborum natus.\r\n','bc35da967e77ff1bfd31a1f4f9a07035.jpg'),(3,'Albertano Santa Cruz','2023-12-04','Top 10 razones para invertir en propiedades','Lorem ipsum dolor sit amet consectetur \r\n','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n','e4d1d23c20e911d07cbd43237e8746a9.jpg');
 /*!40000 ALTER TABLE `articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,13 +59,13 @@ CREATE TABLE `propiedades` (
   `descripcion` longtext,
   `habitaciones` int DEFAULT NULL,
   `wc` int DEFAULT NULL,
-  `estacionamiento` varchar(45) DEFAULT NULL,
+  `estacionamiento` int DEFAULT NULL,
   `creado` date DEFAULT NULL,
   `vendedores_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_propiedades_vendedores1_idx` (`vendedores_id`),
-  CONSTRAINT `fk_propiedades_vendedores1` FOREIGN KEY (`vendedores_id`) REFERENCES `vendedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb3;
+  KEY `fk_propiedades_vendedores_idx` (`vendedores_id`),
+  CONSTRAINT `fk_propiedades_vendedores` FOREIGN KEY (`vendedores_id`) REFERENCES `vendedores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `propiedades` (
 
 LOCK TABLES `propiedades` WRITE;
 /*!40000 ALTER TABLE `propiedades` DISABLE KEYS */;
-INSERT INTO `propiedades` VALUES (39,' Nueva casa bonita',784651.00,'187e53a85249c8ef47f635fcfaeb71bf.jpg','Mensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de prueva',2,3,'4','2023-05-16',1),(40,' Otra casa',4657899.00,'6ee1dbff90804af833e7d74e53b7fcf7.jpg','Mensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de pruevaMensaje de prueva',8,9,'2','2023-05-16',2),(55,' Casa nueva nueva ',67845.00,'f2ff1adc71bd933e2f8ad0d433f89aab.jpg','propiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedadpropiedad',5,5,'6','2023-05-30',1),(59,' Casa en la playa MVC',79864531.00,'1b2e08a48ad1cfd82ee5c3befa90477b.jpg','Casa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVCCasa en la playa MVC',2,4,'4','2023-06-02',5);
+INSERT INTO `propiedades` VALUES (9,'Cabaña en el bosque',120000.00,'daa34c399151cff5e7a6af3919415691.jpg','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n',3,3,3,'2023-05-06',1),(10,'Casa Normal',450000.00,'4fefdaa8f7bae99a0cf5aab35e1634b1.jpg','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n',3,3,3,'2023-05-06',2),(11,'Casa Aesthetic',500000.00,'6baffd5db1f899d1f8823ee4c6bf48f8.jpg','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n',3,3,3,'2023-05-06',2),(22,'Hermosa casa en la playa',10000.00,'394dea992411ef90d2c6286b3bad83e3.jpg','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n',2,2,5,'2023-05-10',2),(29,'Casa de la montaña',20000.00,'c4532ce997ff29ebc10e49c617a3464a.jpg','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n',1,1,1,'2023-05-13',1),(31,'Departmento Preciose',77777.00,'92a97e804ba5825bee964b88e312b128.jpg','Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum et ex, explicabo, recusandae possimus accusamus ab architecto reiciendis suscipit inventore rerum \r\n',4,2,1,'2023-12-04',1);
 /*!40000 ALTER TABLE `propiedades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,9 +90,9 @@ CREATE TABLE `usuarios` (
   `email` varchar(45) DEFAULT NULL,
   `password` char(60) DEFAULT NULL,
   `token` varchar(13) DEFAULT NULL,
-  `estaConfirmado` tinyint DEFAULT '0',
+  `esAdmin` tinyint DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (2,'correo@correo.com','$2y$10$ZGmBopAxEYtFZc9UWE4yye82PxMeeg1zEuCEIDosLtG4W0yIbDmny');
+INSERT INTO `usuarios` VALUES (1,'correo@correo.com','$2y$10$x4Co4gL.hJCcViVxtup7LOIa0D.gGrCJlO9.iAf691fLvoWRtW2uG','',1),(5,'usuario@correo.com','$2y$10$YdYQbEvBPU5Yr6/U8hILHODT4QMOyjQzc2Ke32YjhrLVXQJMawZf.','',0);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +118,7 @@ CREATE TABLE `vendedores` (
   `apellido` varchar(45) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `vendedores` (
 
 LOCK TABLES `vendedores` WRITE;
 /*!40000 ALTER TABLE `vendedores` DISABLE KEYS */;
-INSERT INTO `vendedores` VALUES (1,'Carlos','May','9993240893'),(2,'Benito','Martínez','7884412154'),(5,' Andrea','González','9998451274'),(6,' Cristiano Actualizado','Ronaldo','7854123654');
+INSERT INTO `vendedores` VALUES (1,'Fernando','Joachin','9995683452'),(2,'Roberto','Castillo','9993459761'),(4,'Franco','Gonzalez','9998697542');
 /*!40000 ALTER TABLE `vendedores` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -140,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-13  4:26:49
+-- Dump completed on 2023-12-03 20:32:04

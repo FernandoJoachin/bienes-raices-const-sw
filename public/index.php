@@ -28,10 +28,10 @@ $router->get("/admin-inicio", [CtrlPanelAdministracion::class, "vistaPanelAdmini
 $router->get("/iniciar-sesion",[CtrlInicioSesion::class, "vistaIniciarSesion"]);
 $router->get("/cerrar-sesion",[CtrlInicioSesion::class, "cerrarSesion"]);
 $router->get("/restablecer-contraseña",[CtrlInicioSesion::class, "vistaRestablecerContraseña"]);
-$router->get("/recuperar-contraseña",[CtrlInicioSesion::class, "vistaRecuperarContraseña"]);
+$router->get("/olvide-contraseña",[CtrlInicioSesion::class, "vistaOlvideContraseña"]);
 $router->post("/iniciar-sesion",[CtrlInicioSesion::class, "iniciarSesion"]);
 $router->post("/restablecer-contraseña",[CtrlInicioSesion::class, "restablecerContraseña"]);
-$router->post("/recuperar-contraseña",[CtrlInicioSesion::class, "recuperarContraseña"]);
+$router->post("/olvide-contraseña",[CtrlInicioSesion::class, "OlvideContraseña"]);
 
 $router->get("/admin/propiedades", [CtrlPropiedades::class, "vistaTablaPropiedades"]);
 $router->get("/admin/propiedades/crear", [CtrlPropiedades::class, "vistaCrearPropiedad"]);
@@ -57,5 +57,6 @@ $router->post("/admin/articulos/eliminar", [CtrlArticulo::class, "eliminarArticu
 $router->get("/admin/usuarios",[CtrlUsuario::class, "vistaTablaUsuarios"]);
 $router->get("/admin/usuarios/crear",[CtrlUsuario::class, "vistaCrearUsuario"]);
 $router->post("/admin/usuarios/crear",[CtrlUsuario::class, "crearUsuario"]);
+$router->post("/admin/usuarios/eliminar",[CtrlUsuario::class, "eliminarUsuario"]);
 
 $router->comprobarRutas();
