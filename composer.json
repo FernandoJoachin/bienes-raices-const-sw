@@ -9,11 +9,15 @@
         }
     ],
     "require": {
-        "intervention/image": "^2.7"
+        "intervention/image": "^2.7",
+        "phpmailer/phpmailer": "^6.8"
     },
     "autoload": {
         "psr-4": {
-            "App\\" : "./classes"
+            "Utilidades\\" : "./utilidades",
+            "Modelo\\" : "./modelos",
+            "MVC\\" : "./",
+            "Controlador\\" : "./controladores"
         }
     }
 }

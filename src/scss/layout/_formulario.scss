@@ -37,4 +37,14 @@
         margin: 0;
         width: auto;
     }
+
+    &__acciones{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a{
+            padding-top: 2.5rem;
+        }
+    }
 }
