@@ -13,6 +13,8 @@ class Email {
 
     public function enviarCorreoContacto() {
 
+        $emailRemitente = $this->respuestasFormulario["email"];
+        $emailDestinatario = "bienesRaices@correo.com";
         include_once __DIR__ . "/../includes/template/credenciales_correo.php";
 
         $contenidoCorreo = "<html>";
@@ -54,6 +56,8 @@ class Email {
 
     public function enviarCorreoReestablecerContraseña($token) {
 
+        $emailRemitente = "bienesRaices@correo.com";
+        $emailDestinatario =  $this->respuestasFormulario["email"];
         include_once __DIR__ . "/../includes/template/credenciales_correo.php";
 
         $contenido = '<html>';
