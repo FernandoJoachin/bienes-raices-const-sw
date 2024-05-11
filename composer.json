@@ -10,6 +10,7 @@
     ],
     "require": {
         "intervention/image": "^2.7",
+        "vlucas/phpdotenv": "^5.4",
         "phpmailer/phpmailer": "^6.8"
     },
     "autoload": {

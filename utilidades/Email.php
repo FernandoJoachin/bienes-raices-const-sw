@@ -62,7 +62,7 @@ class Email {
 
         $contenido = '<html>';
         $contenido .= "<p>Has solicitado reestablecer tu password, sigue el siguiente enlace para hacerlo.</p>";
-        $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/restablecer-contraseña?token=" . $token . "'>Reestablecer Contraseña</a></p>";        
+        $contenido .= "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/restablecer-contraseña?token=" . $token . "'>Reestablecer Contraseña</a></p>";        
         $contenido .= "<p>Si no solicitaste este cambio, puedes ignorar el mensaje</p>";
         $contenido .= '</html>';
         $mail->Body = $contenido;
