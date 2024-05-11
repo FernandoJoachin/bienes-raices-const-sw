@@ -45,7 +45,7 @@ class Router
     public function comprobarRutas()
     {
         session_start();
-        $urlActual = $_SERVER["PATH_INFO"] ?? "/";
+        $urlActual = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         $metodoHTTP = $_SERVER["REQUEST_METHOD"];
 
         if($metodoHTTP === "GET"){
